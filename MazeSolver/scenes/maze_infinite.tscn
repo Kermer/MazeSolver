@@ -1,0 +1,47 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://scripts/maze.gd" type="Script" id=1]
+[ext_resource path="res://resources/maze_tileset.tres" type="TileSet" id=2]
+[ext_resource path="res://scenes/collectible.tscn" type="PackedScene" id=3]
+
+[node name="Maze" type="Navigation2D"]
+
+script/script = ExtResource( 1 )
+cell_size = 64
+tilemap_scale = 1.0
+max_parts = 3
+
+[node name="HelperNode" type="TileMap" parent="."]
+
+mode = 0
+tile_set = ExtResource( 2 )
+cell/size = Vector2( 64, 64 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( 131072, 5, 131073, 5, 131075, 5, 131076, 5, 131077, 5, 131079, 5, 131080, 5, 131081, 5, 196608, 5, 196611, 5, 196613, 5, 196615, 5, 196617, 5, 262144, 5, 262145, 5, 262147, 5, 262148, 5, 262149, 5, 262151, 5, 262152, 5, 262153, 5, 327680, 5, 327683, 5, 327684, 5, 327687, 5, 327688, 5, 393216, 5, 393217, 5, 393219, 5, 393221, 5, 393223, 5, 393225, 5 )
+
+[node name="StartPos" type="Position2D" parent="."]
+
+transform/pos = Vector2( 360, 64 )
+transform/scale = Vector2( 3.2, 3.2 )
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="Collectible" parent="Objects" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 104, -384 )
+
+[node name="Collectible1" parent="Objects" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 296, -608 )
+
+

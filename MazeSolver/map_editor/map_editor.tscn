@@ -1,0 +1,304 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://themes/menu_theme.tres" type="Theme" id=1]
+[ext_resource path="res://map_editor/map_editor.gd" type="Script" id=2]
+[ext_resource path="res://map_editor/editor_window.gd" type="Script" id=3]
+[ext_resource path="res://resources/maze_tileset.tres" type="TileSet" id=4]
+[ext_resource path="res://map_editor/previews/start_pos.png" type="Texture" id=5]
+[ext_resource path="res://gfx/_white_32.png" type="Texture" id=6]
+
+[sub_resource type="GDScript" id=1]
+
+script/source = "extends Node2D\n\n\nfunc _draw():\n\tvar col = Color(1,0,0,0.7)\n\tdraw_line(Vector2(-128,0),Vector2(10000,0),col,2)\n\tdraw_line(Vector2(0,-128),Vector2(0,10000),col,2)\n\tcol = Color(0,1,0,0.7)\n\tvar size = Vector2(Globals.get(\"display/width\"),Globals.get(\"display/height\"))\n\tdraw_line(Vector2(size.x,-128),Vector2(size.x,10000),col,2)\n\tcol.a = 0.3\n\tdraw_line(Vector2(-128,size.y),Vector2(10000,size.y),col,2)\n\t\n#\tcol = Color(1,0,0,0.5)\n#\tvar rect = Rect2(Vector2(-64,0),Vector2(10000,64*3))\n#\tdraw_rect(rect,col)"
+
+[sub_resource type="GDScript" id=2]
+
+script/source = "extends Tree\n\n\nfunc show():\n\tvar pos = get_global_mouse_pos()\n\tvar selector_size = get_size()\n\tvar window_size = OS.get_window_size()\n\tif pos.x + selector_size.x > window_size.x:\n\t\tpos.x = window_size.x-selector_size.x\n\tif pos.y + selector_size.y > window_size.y:\n\t\tpos.y = window_size.y-selector_size.y\n\tset_global_pos(pos)\n\t.show()\n\tgrab_focus()"
+
+[node name="MapEditor" type="Control"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+script/script = ExtResource( 2 )
+
+[node name="CL" type="CanvasLayer" parent="."]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+
+[node name="StartMenu" type="Panel" parent="CL"]
+
+visibility/visible = false
+margin/left = 104.0
+margin/top = 160.0
+margin/right = 616.0
+margin/bottom = 1120.0
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+__meta__ = { "_editor_collapsed":true }
+
+[node name="BNew" type="Button" parent="CL/StartMenu"]
+
+margin/left = 96.0
+margin/top = 128.0
+margin/right = 420.0
+margin/bottom = 224.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "New Level"
+flat = false
+
+[node name="BLoad" type="Button" parent="CL/StartMenu"]
+
+margin/left = 96.0
+margin/top = 320.0
+margin/right = 420.0
+margin/bottom = 416.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+disabled = true
+toggle_mode = false
+text = "Load Level"
+flat = false
+
+[node name="BBack" type="Button" parent="CL/StartMenu"]
+
+margin/left = 96.0
+margin/top = 512.0
+margin/right = 420.0
+margin/bottom = 608.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+disabled = true
+toggle_mode = false
+text = "Go Back"
+flat = false
+
+[node name="EscMenu" type="Panel" parent="CL"]
+
+visibility/visible = false
+margin/left = 104.0
+margin/top = 160.0
+margin/right = 616.0
+margin/bottom = 1120.0
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+__meta__ = { "_editor_collapsed":true }
+
+[node name="BSave" type="Button" parent="CL/EscMenu"]
+
+margin/left = 96.0
+margin/top = 224.0
+margin/right = 420.0
+margin/bottom = 320.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "Save Level"
+flat = false
+
+[node name="BContinue" type="Button" parent="CL/EscMenu"]
+
+margin/left = 96.0
+margin/top = 384.0
+margin/right = 420.0
+margin/bottom = 480.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "Continue"
+flat = false
+
+[node name="BQuit" type="Button" parent="CL/EscMenu"]
+
+margin/left = 96.0
+margin/top = 704.0
+margin/right = 420.0
+margin/bottom = 800.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+disabled = true
+toggle_mode = false
+text = "Quit"
+flat = false
+
+[node name="LevelName" type="LineEdit" parent="CL/EscMenu"]
+
+margin/left = 64.0
+margin/top = 160.0
+margin/right = 448.0
+margin/bottom = 196.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+text = "NoName"
+max_length = 0
+editable = true
+secret = false
+
+[node name="Label" type="Label" parent="CL/EscMenu/LevelName"]
+
+margin/left = 32.0
+margin/top = -32.0
+margin/right = 352.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+text = "Level Name:"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="FileDialog" type="FileDialog" parent="CL"]
+
+visibility/visible = false
+margin/left = 40.0
+margin/top = 128.0
+margin/right = 688.0
+margin/bottom = 800.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+popup/exclusive = false
+window/title = "Save a File"
+dialog/hide_on_ok = false
+
+[node name="EditorWindow" type="Control" parent="."]
+
+margin/right = 720.0
+margin/bottom = 1280.0
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+script/script = ExtResource( 3 )
+
+[node name="Level" type="Node2D" parent="EditorWindow"]
+
+visibility/light_mask = 0
+script/script = SubResource( 1 )
+
+[node name="TileMap" type="TileMap" parent="EditorWindow/Level"]
+
+mode = 0
+tile_set = ExtResource( 4 )
+cell/size = Vector2( 64, 64 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray(  )
+
+[node name="ObjectPreview" type="Sprite" parent="EditorWindow/Level"]
+
+visibility/opacity = 0.7
+visibility/light_mask = 0
+transform/pos = Vector2( 72, 64 )
+
+[node name="StartPos" type="Sprite" parent="EditorWindow/Level"]
+
+visibility/light_mask = 0
+transform/pos = Vector2( 72, 64 )
+transform/scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+
+[node name="Camera" type="Camera2D" parent="EditorWindow"]
+
+transform/pos = Vector2( 360, 640 )
+anchor_mode = 1
+rotating = false
+current = false
+zoom = Vector2( 1.5, 1.5 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+[node name="Light2D" type="Light2D" parent="EditorWindow"]
+
+transform/pos = Vector2( 4680, 4672 )
+enabled = true
+texture = ExtResource( 6 )
+offset = Vector2( 0, 0 )
+scale = 300.0
+color = Color( 1, 1, 1, 1 )
+energy = 1.0
+mode = 0
+range/height = 0.0
+range/z_min = -1024
+range/z_max = 1024
+range/layer_min = 0
+range/layer_max = 0
+range/item_mask = 1
+shadow/enabled = false
+shadow/color = Color( 0, 0, 0, 0 )
+shadow/buffer_size = 2048
+shadow/esm_multiplier = 80.0
+shadow/item_mask = 1
+
+[node name="CL" type="CanvasLayer" parent="EditorWindow"]
+
+layer = 1
+offset = Vector2( 0, 0 )
+rotation = 0.0
+scale = Vector2( 1, 1 )
+__meta__ = { "_editor_collapsed":true }
+
+[node name="ItemSelection" type="Tree" parent="EditorWindow/CL"]
+
+visibility/visible = false
+margin/left = 8.0
+margin/top = 32.0
+margin/right = 264.0
+margin/bottom = 288.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+script/script = SubResource( 2 )
+
+

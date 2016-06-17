@@ -1,0 +1,239 @@
+[gd_scene load_steps=20 format=1]
+
+[ext_resource path="res://resources/light_only_material.tres" type="CanvasItemMaterial" id=1]
+[ext_resource path="res://gfx/_empty_64.png" type="Texture" id=2]
+[ext_resource path="res://gfx/wall_1.png" type="Texture" id=3]
+[ext_resource path="res://gfx/wall_2.png" type="Texture" id=4]
+[ext_resource path="res://gfx/wall_2_2.png" type="Texture" id=5]
+[ext_resource path="res://gfx/wall_3.png" type="Texture" id=6]
+[ext_resource path="res://gfx/wall_4.png" type="Texture" id=7]
+
+[sub_resource type="NavigationPolygon" id=1]
+
+vertices = Vector2Array( -8, -32, 8, -32, 8, -8, -8, -8, 32, -8, 32, 8, 8, 8, -8, 8, 8, 32, -8, 32, -32, 8, -32, -8 )
+polygons = [ IntArray( 0, 1, 2, 3 ), IntArray( 2, 4, 5, 6 ), IntArray( 3, 2, 6, 7 ), IntArray( 6, 8, 9, 7 ), IntArray( 3, 7, 10, 11 ) ]
+outlines = [ Vector2Array( -8, -32, -8, -8, -32, -8, -32, 8, -8, 8, -8, 32, 8, 32, 8, 8, 32, 8, 32, -8, 8, -8, 8, -32 ) ]
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -32, 26, 32, 26, 32, 38, -32, 38 )
+
+[sub_resource type="NavigationPolygon" id=3]
+
+vertices = Vector2Array( -32, 8, -32, -8, -8, -8, 32, 8, -8, -32, 8, -32, 8, -8, 32, -8 )
+polygons = [ IntArray( 0, 1, 2, 3 ), IntArray( 2, 4, 5, 6 ), IntArray( 3, 2, 6 ), IntArray( 3, 6, 7 ) ]
+outlines = [ Vector2Array( -32, 8, 32, 8, 32, -8, 8, -8, 8, -32, -8, -32, -8, -8, -32, -8 ) ]
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 26, -32, 38, -32, 38, 38, 26, 26 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 26, 26, 38, 38, -32, 38, -32, 26 )
+
+[sub_resource type="NavigationPolygon" id=6]
+
+vertices = Vector2Array( -32, 8, -32, -8, -8, -8, 8, 8, 8, -32, -8, -32 )
+polygons = [ IntArray( 0, 1, 2, 3 ), IntArray( 4, 3, 2, 5 ) ]
+outlines = [ Vector2Array( -32, 8, 8, 8, 8, -32, -8, -32, -8, -8, -32, -8 ) ]
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -32, 26, 32, 26, 32, 32, -32, 32 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -32, -32, 32, -32, 32, -26, -32, -26 )
+
+[sub_resource type="NavigationPolygon" id=9]
+
+vertices = Vector2Array( -32, -8, 32, -8, 32, 8, -32, 8 )
+polygons = [ IntArray( 0, 1, 2, 3 ) ]
+outlines = [ Vector2Array( -32, -8, 32, -8, 32, 8, -32, 8 ) ]
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+
+custom_solver_bias = 0.0
+points = Vector2Array( -38, 38, -38, -32, -26, -32, -26, 26 )
+
+[sub_resource type="ConvexPolygonShape2D" id=11]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 38, 38, -38, 38, -26, 26, 26, 26 )
+
+[sub_resource type="ConvexPolygonShape2D" id=12]
+
+custom_solver_bias = 0.0
+points = Vector2Array( 38, -32, 38, 38, 26, 26, 26, -32 )
+
+[node name="Node" type="Node"]
+
+[node name="Empty" type="Sprite" parent="."]
+
+material/material = ExtResource( 1 )
+transform/pos = Vector2( -96, 32 )
+texture = ExtResource( 2 )
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Empty"]
+
+navpoly = SubResource( 1 )
+enabled = true
+
+[node name="Wall_1" type="Sprite" parent="."]
+
+material/material = ExtResource( 1 )
+transform/pos = Vector2( 32, 32 )
+texture = ExtResource( 3 )
+__meta__ = { "_editor_collapsed":true }
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall_1"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+__meta__ = { "_editor_collapsed":true }
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wall_1/StaticBody2D"]
+
+build_mode = 0
+polygon = Vector2Array( -32, 38, 32, 38, 32, 26, -32, 26 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Wall_1"]
+
+navpoly = SubResource( 3 )
+enabled = true
+
+[node name="Wall_2" type="Sprite" parent="."]
+
+material/material = ExtResource( 1 )
+transform/pos = Vector2( 160, 32 )
+texture = ExtResource( 4 )
+__meta__ = { "_editor_collapsed":true }
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall_2"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 5 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+__meta__ = { "_editor_collapsed":true }
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wall_2/StaticBody2D"]
+
+build_mode = 0
+polygon = Vector2Array( 38, -32, 38, 38, -32, 38, -32, 26, 26, 26, 26, -32 )
+shape_range = Vector2( 0, 1 )
+trigger = false
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Wall_2"]
+
+navpoly = SubResource( 6 )
+enabled = true
+
+[node name="Wall_2_opposite" type="Sprite" parent="."]
+
+material/material = ExtResource( 1 )
+transform/pos = Vector2( 288, 32 )
+texture = ExtResource( 5 )
+__meta__ = { "_editor_collapsed":true }
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall_2_opposite"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 7 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 8 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+__meta__ = { "_editor_collapsed":true }
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wall_2_opposite/StaticBody2D"]
+
+build_mode = 0
+polygon = Vector2Array( -32, 32, 32, 32, 32, 26, -32, 26 )
+shape_range = Vector2( 0, 0 )
+trigger = false
+
+[node name="CollisionPolygon2D1" type="CollisionPolygon2D" parent="Wall_2_opposite/StaticBody2D"]
+
+build_mode = 0
+polygon = Vector2Array( -32, -32, 32, -32, 32, -26, -32, -26 )
+shape_range = Vector2( 1, 1 )
+trigger = false
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Wall_2_opposite"]
+
+navpoly = SubResource( 9 )
+enabled = true
+
+[node name="Wall_3" type="Sprite" parent="."]
+
+material/material = ExtResource( 1 )
+transform/pos = Vector2( 416, 32 )
+texture = ExtResource( 6 )
+__meta__ = { "_editor_collapsed":true }
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Wall_3"]
+
+input/pickable = false
+shapes/0/shape = SubResource( 10 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+shapes/1/shape = SubResource( 11 )
+shapes/1/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/1/trigger = false
+shapes/2/shape = SubResource( 12 )
+shapes/2/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/2/trigger = false
+collision/layers = 1
+collision/mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Wall_3/StaticBody2D"]
+
+build_mode = 0
+polygon = Vector2Array( -38, -32, -26, -32, -26, 26, 26, 26, 26, -32, 38, -32, 38, 38, -38, 38 )
+shape_range = Vector2( 0, 2 )
+trigger = false
+
+[node name="Wall_4_error" type="Sprite" parent="."]
+
+material/material = ExtResource( 1 )
+transform/pos = Vector2( 544, 32 )
+texture = ExtResource( 7 )
+
+

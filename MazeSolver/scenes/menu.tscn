@@ -1,0 +1,121 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://themes/menu_theme.tres" type="Theme" id=1]
+[ext_resource path="res://scripts/menu.gd" type="Script" id=2]
+
+[node name="Menu" type="Control"]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
+script/script = ExtResource( 2 )
+
+[node name="Main" type="Control" parent="."]
+
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+__meta__ = { "_editor_collapsed":true }
+
+[node name="BStart" type="Button" parent="Main"]
+
+margin/left = 200.0
+margin/top = 384.0
+margin/right = 520.0
+margin/bottom = 480.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "Play"
+flat = false
+
+[node name="BOptions" type="Button" parent="Main"]
+
+margin/left = 200.0
+margin/top = 576.0
+margin/right = 520.0
+margin/bottom = 672.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+disabled = true
+toggle_mode = false
+text = "Options"
+flat = false
+
+[node name="BQuit" type="Button" parent="Main"]
+
+margin/left = 200.0
+margin/top = 768.0
+margin/right = 520.0
+margin/bottom = 864.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+disabled = true
+toggle_mode = false
+text = "Quit"
+flat = false
+
+[node name="Start" type="Control" parent="."]
+
+visibility/visible = false
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+__meta__ = { "_editor_collapsed":true }
+
+[node name="BClassic" type="Button" parent="Start"]
+
+margin/left = 200.0
+margin/top = 384.0
+margin/right = 520.0
+margin/bottom = 480.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+disabled = true
+toggle_mode = false
+text = "Classic Mode"
+flat = false
+
+[node name="BEndless" type="Button" parent="Start"]
+
+margin/left = 200.0
+margin/top = 576.0
+margin/right = 520.0
+margin/bottom = 672.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "Endless Mode"
+flat = false
+
+[node name="Options" type="Control" parent="."]
+
+visibility/visible = false
+anchor/right = 1
+anchor/bottom = 1
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+
+
