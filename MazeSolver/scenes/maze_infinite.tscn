@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://scripts/maze.gd" type="Script" id=1]
 [ext_resource path="res://resources/maze_tileset.tres" type="TileSet" id=2]
-[ext_resource path="res://scenes/collectible.tscn" type="PackedScene" id=3]
 
 [node name="Maze" type="Navigation2D"]
 
@@ -36,12 +35,8 @@ transform/scale = Vector2( 3.2, 3.2 )
 
 [node name="Objects" type="Node2D" parent="."]
 
-[node name="Collectible" parent="Objects" instance=ExtResource( 3 )]
+__meta__ = { "_editor_collapsed":true }
 
-transform/pos = Vector2( 104, -384 )
-
-[node name="Collectible1" parent="Objects" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 296, -608 )
+[node name="Collectibles" type="Node2D" parent="Objects"]
 
 

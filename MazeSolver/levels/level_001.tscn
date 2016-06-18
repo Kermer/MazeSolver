@@ -1,0 +1,114 @@
+[gd_scene load_steps=9 format=1]
+
+[ext_resource path="res://scripts/default_maze.gd" type="Script" id=1]
+[ext_resource path="res://resources/maze_tileset.tres" type="TileSet" id=2]
+[ext_resource path="res://scenes/collectible.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/collectible.gd" type="Script" id=4]
+[ext_resource path="res://scripts/end_pos.gd" type="Script" id=5]
+[ext_resource path="res://gfx/end_pos.png" type="Texture" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+custom_solver_bias = 0.0
+extents = Vector2( 16, 16 )
+
+[sub_resource type="RectangleShape2D" id=2]
+
+custom_solver_bias = 0.0
+extents = Vector2( 32, 32 )
+
+[node name="NoName" type="Navigation2D"]
+
+script/script = ExtResource( 1 )
+__meta__ = { "level_grid":{ Vector2( 2, -3 ):6, Vector2( 2, -2 ):5, Vector2( 3, -9 ):2, Vector2( 3, -8 ):3, Vector2( 3, -7 ):5, Vector2( 3, -6 ):6, Vector2( 3, -5 ):5, Vector2( 3, -4 ):6, Vector2( 3, -3 ):11, Vector2( 3, -2 ):9, Vector2( 4, -7 ):10, Vector2( 4, -6 ):9, Vector2( 4, -5 ):12, Vector2( 4, -4 ):12, Vector2( 5, -5 ):10, Vector2( 5, -4 ):9 }, "level_height":11.0, "level_name":"NoName", "level_width":6.0 }
+WIDTH = 6.0
+HEIGHT = 11.0
+
+[node name="TileMap" type="TileMap" parent="."]
+
+mode = 0
+tile_set = ExtResource( 2 )
+cell/size = Vector2( 64, 64 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( -589821, 1610612740, -524285, -1610612733, -458749, -1610612734, -458748, -1073741822, -393213, 1610612738, -393212, 2, -327677, -1610612734, -327676, 3, -327675, -1073741822, -262141, 1610612738, -262140, 3, -262139, 2, -196606, 1610612738, -196605, -1073741823, -131070, -1610612734, -131069, 2 )
+
+[node name="Objects" type="Node2D" parent="."]
+
+__meta__ = { "_editor_collapsed":true }
+
+[node name="Collectibles" type="Node2D" parent="Objects"]
+
+[node name="Collectible" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 352, -288 )
+z/z = 30
+z/relative = false
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+monitorable = false
+script/script = ExtResource( 4 )
+type = "IncEnergy"
+
+[node name="Collectible81" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 224, -352 )
+z/z = 30
+z/relative = false
+input/pickable = true
+shapes/0/shape = SubResource( 1 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+monitorable = false
+script/script = ExtResource( 4 )
+type = "IncEnergy"
+
+[node name="StartPos" type="Position2D" parent="."]
+
+transform/pos = Vector2( 160, -96 )
+
+[node name="EndPos" type="Area2D" parent="."]
+
+transform/pos = Vector2( 224, -544 )
+z/z = 35
+z/relative = false
+input/pickable = true
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 5 )
+
+[node name="Sprite" type="Sprite" parent="EndPos"]
+
+texture = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EndPos"]
+
+shape = SubResource( 2 )
+trigger = false
+_update_shape_index = 0
+
+

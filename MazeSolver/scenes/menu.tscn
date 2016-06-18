@@ -77,7 +77,6 @@ focus/ignore_mouse = true
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-__meta__ = { "_editor_collapsed":true }
 
 [node name="BClassic" type="Button" parent="Start"]
 
@@ -89,7 +88,6 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-disabled = true
 toggle_mode = false
 text = "Classic Mode"
 flat = false

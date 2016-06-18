@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 10, 10 )
+extents = Vector2( 16, 16 )
 
 [node name="Collectible" type="Area2D"]
 
@@ -43,7 +43,7 @@ _update_shape_index = 0
 enabled = true
 texture = ExtResource( 3 )
 offset = Vector2( 0, 0 )
-scale = 0.5
+scale = 0.3
 color = Color( 1, 1, 1, 1 )
 energy = 1.0
 mode = 0

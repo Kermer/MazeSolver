@@ -12,46 +12,64 @@ const N=1; const S=2; const E=4; const W=8
 
 const tree_items = [
 	{"name":"Dynamic Tiles","tip":"Tiles which adjust to adjacent tiles","children":[
-		{"name":"Maze Path","selectable":true,"tip":"Base of each maze"}
+		{"name":"Maze Path","tip":"Base of each maze"}
 		]
 	},
 	{"name":"Objects","tip":"Placeable items with possible unique properties","children":[
 		{"name":"Collectibles","tip":"Triggering some action when walked-on","children":[
-			{"name":"Increase Energy","tip":"Increases Energy on pickup","selectable":true}
+			{"name":"Increase Energy","tip":"Increases Energy on pickup"}
 			]
 		}
 		]
 	},
 	{"name":"Environment","tip":"Objects (and more) affecting gameplay","children":[
-		{"name":"Start Pos","tip":"Point where player will spawn","selectable":true},
-		{"name":"End Pos","tip":"Step here to finish the level","selectable":true}
+		{"name":"Start Pos","tip":"Point where player will spawn"},
+		{"name":"End Pos","tip":"Step here to finish the level"},
+		{"name":"Right Border","tip":""},
+		{"name":"Top Border","tip":""}
 		]
 	}
 	]
 
-const items_preview = {
-	"Maze Path":{"tex":preload("res://map_editor/previews/path.png")},
-	"Start Pos":{"tex":preload("res://map_editor/previews/start_pos.png"),"scale":Vector2(0.5,0.5)},
-	"Increase Energy":{"tex":preload("res://map_editor/previews/increase_energy.png")}
+const items_data = {
+	"Maze Path":{"name":"Maze Path","category":"Tiles",
+		"preview":{"texture":preload("res://map_editor/previews/path.png")}
+		},
+	"Increase Energy":{"name":"Increase Energy","category":"Objects","path":"Objects/Collectibles",
+		"preview":{"texture":preload("res://map_editor/previews/increase_energy.png"),"scale":Vector2(0.5,0.5)},
+		"scene":preload("res://scenes/collectible.tscn"),
+		"scene_vars":{"type":"IncEnergy"}
+		},
+	"Start Pos":{"name":"Start Pos","category":"Environment",
+		"preview":{"texture":preload("res://map_editor/previews/start_pos.png"),"scale":Vector2(0.5,0.5)}
+		},
+	"End Pos":{"name":"End Pos","category":"Environment",
+		"preview":{"texture":preload("res://map_editor/previews/end_pos.png")},
+		"scene":preload("res://scenes/end_pos.tscn")
+		},
+	"Right Border":{"name":"Right Border","category":"Environment"},
+	"Top Border":{"name":"Top Border","category":"Environment"},
 	}
 
 
 # Selection tree related
-var selectable_items = [] # this will be auto-filled
-var selected_item = ""
+#var selectable_items = [] # this will be auto-filled
+var selected_item = {"name":"","category":""}
 onready var item_tree = get_node("CL/ItemSelection")
 signal item_selected
 # TileMap edition related
-onready var obj_preview = get_node("Level/ObjectPreview")
+const level_script = preload("res://scripts/default_maze.gd")
+onready var obj_preview = get_node("Level/HELPERS/ObjectPreview")
 var cell_size = 64
 var move_speed = 600
 var zoom_speed = 0.8
 var grid = {}
 var mouse_drag = 0 # 0-none 1-LMB 2-RMB
 var last_tile_pos = null
-var WIDTH = 0
-var HEIGHT = 0
+var WIDTH = 4
+var HEIGHT = 4
 onready var tmap = get_node("Level/TileMap")
+var objects = {}
 
 
 
@@ -59,6 +77,7 @@ onready var tmap = get_node("Level/TileMap")
 var DEFAULT_ICON = null
 
 func _ready():
+#	OS.set_window_maximized(true)
 	init()
 	DEFAULT_ICON = get_icon("Node")
 	item_tree.connect("item_collapsed",self,"_titem_collapsed")
@@ -81,7 +100,6 @@ func set_process(val): # override
 # ========================================
 func fill_tree():
 	item_tree.clear()
-	selectable_items.clear()
 	var titem = item_tree.create_item()
 	titem.set_text(0,"Editor")
 	item_tree.set_select_mode(0)
@@ -95,8 +113,6 @@ func fill_tree_item(item_data,parent=null):
 	titem.set_tooltip(0,"")
 	if item_data.has("tip"):
 		titem.set_tooltip(0,item_data.tip)
-	if item_data.has("selectable"):
-		selectable_items.append( item_data.name )
 	if item_data.has("children"):
 		for child_data in item_data.children:
 			fill_tree_item(child_data,titem)
@@ -112,10 +128,14 @@ func _titem_collapsed( titem ):
 func _titem_selected():
 	var titem = item_tree.get_selected()
 	var item_name = titem.get_text(0)
-	if item_name in selectable_items:
-		if selected_item != item_name:
-			selected_item = item_name
-			emit_signal("item_selected",item_name)
+	if items_data.has(item_name):
+		if selected_item.name != item_name:
+			if selected_item.name == "Right Border":
+				get_node("Level/HELPERS/VLine").hide()
+			elif selected_item.name == "Top Border":
+				get_node("Level/HELPERS/HLine").hide()
+			selected_item = items_data[item_name]
+			emit_signal("item_selected",selected_item)
 			print("item selected: ",item_name)
 
 func toggle_selection_window():
@@ -123,41 +143,40 @@ func toggle_selection_window():
 		item_tree.show()
 	else:
 		item_tree.hide()
-#func show_selection_window(pos=null):
-#	if typeof(pos) != TYPE_VECTOR2:
-#		pos = get_global_mouse_pos()
-#	var selector = get_node("CL/ItemSelection")
-#	var selector_size = selector.get_size()
-#	var window_size = OS.get_window_size()
-#	if pos.x + selector_size.x > window_size.x:
-#		pos.x = window_size.x-selector_size.x
-#	if pos.y + selector_size.y > window_size.y:
-#		pos.y = window_size.y-selector_size.y
-#	selector.set_global_pos(pos)
-#	selector.show()
 
 func get_packed_level(level_name):
 	var level = get_node("Level").duplicate()
+	# replacing Nodes (with other type or scene)
 	var nav = Navigation2D.new()
 	level.replace_by( nav, true )
 	level = nav
 	var start_pos = Position2D.new()
 	start_pos.set_name("StartPos"); start_pos.set_pos(level.get_node("StartPos").get_pos())
 	level.get_node("StartPos").replace_by( start_pos )
-	level.remove_child( level.get_node("ObjectPreview") )
-	level.set_script(null)
+	var end_pos = items_data["End Pos"].scene.instance()
+	end_pos.set_name("EndPos"); end_pos.set_pos(level.get_node("EndPos").get_pos())
+	level.get_node("EndPos").replace_by( end_pos )
+	level.remove_child( level.get_node("HELPERS") )
+	level.set_script(level_script)
 	level.set_name(level_name)
 	var packed_scene = PackedScene.new()
 	level.set_meta("level_name",level_name)
 	level.set_meta("level_grid",grid)
-	level.set_meta("level_size",Vector2(WIDTH,HEIGHT))
+	level.set_meta("level_width",WIDTH)
+	level.set_meta("level_height",HEIGHT)
+	level.WIDTH = WIDTH # scrip var
+	level.HEIGHT = HEIGHT
 	recursive_set_owner(level,level)
 	packed_scene.pack(level)
+	packed_scene.set_meta("level_name",level_name)
 	return packed_scene
 
 func recursive_set_owner(owner,node):
+	
 	for child in node.get_children():
 		child.set_owner(owner)
+		if node.get_name() == "Collectibles": # otherwise "Editable Children" glitches
+			continue
 		recursive_set_owner(owner,child)
 
 
@@ -168,17 +187,21 @@ func _unhandled_input(event):
 	if event.type == InputEvent.MOUSE_MOTION:
 		var mpos = get_node("Level").get_local_mouse_pos()
 		if obj_preview.is_visible():
-			if mpos.x > 0 and mpos.y > 0:
+			if mpos.x > 0 and mpos.y < 0:
 #				mpos.x = int(mpos.x)/cell_size*cell_size;mpos.y = int(mpos.y)/cell_size*cell_size
 #				mpos += Vector2(cell_size/2,cell_size/2)
 				mpos = tmap.map_to_world(tmap.world_to_map(mpos)) + Vector2(cell_size,cell_size)/2
 #				obj_preview.set_global_pos( mpos )
 				obj_preview.set_pos( mpos )
-				if selected_item == "Maze Path":
+				if selected_item.category == "Tiles":
 					if mouse_drag == 1:
 						place_item()
 					elif mouse_drag == 2:
 						remove_item()
+				elif selected_item.name == "Right Border":
+					get_node("Level/HELPERS/VLine").set_pos( Vector2(mpos.x+0.5*cell_size,128) )
+				elif selected_item.name == "Top Border":
+					get_node("Level/HELPERS/HLine").set_pos( Vector2(-128,mpos.y-0.5*cell_size) )
 	elif event.type == InputEvent.MOUSE_BUTTON:
 		if event.button_index == 2:
 			if event.is_pressed():
@@ -186,10 +209,12 @@ func _unhandled_input(event):
 				mouse_drag = 2
 				set_process_input(true)
 		elif event.button_index == 1:
-			if event.is_pressed():
-				mouse_drag = 1
-				place_item()
-				set_process_input(true)
+			var mpos = get_node("Level").get_local_mouse_pos()
+			if mpos.x > 0 and mpos.y < 0:
+				if event.is_pressed():
+					mouse_drag = 1
+					place_item(mpos)
+					set_process_input(true)
 		elif event.button_index == BUTTON_WHEEL_UP:
 			get_node("Camera").set_zoom( get_node("Camera").get_zoom()*zoom_speed )
 		elif event.button_index == BUTTON_WHEEL_DOWN:
@@ -213,24 +238,60 @@ func _input(event): # basically just for mouse button release
 
 
 func place_item(global_pos=null):
-	if selected_item == "":
+	if selected_item.category == "":
 		return
 	if global_pos==null:
 		global_pos = get_node("Level").get_local_mouse_pos()
+	var tpos = tmap.world_to_map(global_pos)
 	
-	if selected_item == "Maze Path":
-		add_path(global_pos)
-		pass
-	elif selected_item == "Start Pos":
-		global_pos = tmap.map_to_world(tmap.world_to_map(global_pos)) + Vector2(cell_size,cell_size)/2
-		get_node("Level/StartPos").set_pos( global_pos )
+	# Dynamic Tiles
+	if selected_item.category == "Tiles":
+		if selected_item.name == "Maze Path":
+			add_path(global_pos)
+		else:
+			return
+	# Objects
+	elif selected_item.category == "Objects":
+		if selected_item.name == "Increase Energy":
+			add_object(selected_item,global_pos)
+		else:
+			return
+	# Environment
+	elif selected_item.category == "Environment":
+		if selected_item.name == "Start Pos":
+			global_pos = tmap.map_to_world(tpos) + Vector2(cell_size,cell_size)/2
+			get_node("Level/StartPos").set_pos( global_pos )
+		elif selected_item.name == "End Pos":
+			global_pos = tmap.map_to_world(tpos) + Vector2(cell_size,cell_size)/2
+			get_node("Level/EndPos").set_pos( global_pos )
+		elif selected_item.name == "Right Border":
+			WIDTH = tpos.x+1
+			get_node("Level").draw_size(WIDTH*cell_size,HEIGHT*cell_size)
+			return
+		elif selected_item.name == "Top Border":
+			HEIGHT = -(tpos.y)
+			get_node("Level").draw_size(WIDTH*cell_size,HEIGHT*cell_size)
+			return
+		else:
+			return
+	else:
+		return
+	tpos.x += 1; tpos.y -= 2
+	if tpos.x > WIDTH:
+		WIDTH = tpos.x
+	if tpos.y < -HEIGHT:
+		HEIGHT = -tpos.y
+	get_node("Level").draw_size(WIDTH*cell_size,HEIGHT*cell_size)
 
 func remove_item(global_pos=null):
 	if global_pos==null:
 		global_pos = get_node("Level").get_local_mouse_pos()
 	
-	if selected_item == "Maze Path":
-		remove_path(global_pos)
+	if selected_item.category == "Tiles":
+		if selected_item.name == "Maze Path":
+			remove_path(global_pos)
+	elif selected_item.category == "Objects":
+		remove_object(global_pos)
 
 func add_path(global_pos):
 	var pos = tmap.world_to_map(global_pos)
@@ -262,6 +323,26 @@ func add_path(global_pos):
 	tmap.set_cellv(pos,prop[0],prop[1],prop[2],prop[3])
 	
 	last_tile_pos = pos
+
+func add_object(item_data,pos):
+	var tpos = tmap.world_to_map(pos)
+	if objects.has(tpos):
+		return # there's already an object at this point
+	var inst = item_data.scene.instance()
+	if item_data.has("scene_vars"):
+		for var_name in item_data.scene_vars:
+			inst.set(var_name,item_data.scene_vars[var_name])
+	pos = tmap.map_to_world(tpos) + Vector2(0.5,0.5)*cell_size
+	inst.set_pos( pos )
+	var level = get_node("Level")
+	level.get_node(item_data.path).add_child(inst)
+	objects[tpos] = inst
+
+func remove_object(pos):
+	var tpos = tmap.world_to_map(pos)
+	if objects.has(tpos):
+		objects[tpos].queue_free()
+		objects.erase(tpos)
 
 func check_and_fix_previous(pos,dir):
 	var previous = pos-dir
@@ -297,14 +378,17 @@ func _process(delta):
 	var level = get_node("Level")
 	level.set_pos( level.get_pos() + dir*move_speed*delta )
 
-func _item_selected( iname ):
+func _item_selected( item_data ):
 	var tex = null
 	var scale = Vector2(1,1)
-	if items_preview.has( iname ):
-		var ipreview = items_preview[iname]
-		tex = ipreview.tex
-		if ipreview.has("scale"):
-			scale = ipreview.scale
+	if item_data.has("preview"):
+		tex = item_data.preview.texture
+		if item_data.preview.has("scale"):
+			scale = item_data.preview.scale
+	elif item_data.name == "Right Border":
+		get_node("Level/HELPERS/VLine").show()
+	elif item_data.name == "Top Border":
+		get_node("Level/HELPERS/HLine").show()
 	obj_preview.set_texture(tex)
 	obj_preview.set_scale(scale)
 	pass

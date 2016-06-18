@@ -24,6 +24,25 @@ func start_endless():
 	ready_player()
 	pass
 
+func start_classic( file_name ):
+	var level_scene = load("res://levels/"+file_name)
+	if level_scene == null:
+		dprint(str("Failed to load level. file_name=\"",file_name,"\""))
+		return
+	level_type = "classic"
+	level = level_scene.instance()
+	add_child(level)
+	move_child(level,0)
+	ready_level()
+	ready_player()
+	var top_limit = level.get_pos().y - (level.get_size().y*level.get_cell_size())
+	player.update_limit("top",top_limit)
+
+func ready_level():
+	level.get_node("EndPos").connect("player_enter",self,"_on_win")
+	for collectible in get_tree().get_nodes_in_group("Collectibles"):
+		collectible.connect("player_enter",self,"_on_pickup")
+
 func ready_player():
 #	player.set_darkness(true,OS.get_window_size()*3)
 	player.set_pos( level.get_node("StartPos").get_pos() )
@@ -32,5 +51,18 @@ func ready_player():
 	var level_size = level.get_size() * cell_size
 	player.set_limits( level_pos.x, level_pos.x+level_size.x, level_pos.y+cell_size*3 )
 	player.set_process(true)
-	
 
+func _on_pickup( pickup_type, _player ):
+	if pickup_type == "IncEnergy":
+		# increase our energy
+		pass
+
+func _on_win(_player):
+	dprint("YOU WIN!")
+	get_node("../Menu").show()
+	queue_free()
+
+
+func dprint( s ):
+	s = str(s)
+	print("[game.gd] ",s)

@@ -28,8 +28,19 @@ func _on_Start_BEndless():
 	game.start_endless()
 	hide()
 
+func _on_Start_BClassic():
+	start_level("level_001.tscn")
+
+func start_level(file_name):
+	var game = preload("res://scenes/game.tscn").instance()
+	get_parent().add_child(game)
+	game.start_classic(file_name)
+	hide()
+
 func _go_back():
-	if sub_menu[0] == 1:
+	if get_parent().has_node("Game"):
+		pass
+	elif sub_menu[0] == 1:
 		get_node(sub_menu[1]).hide()
 		get_node("Main").show()
 		sub_menu = [0,"Main"]

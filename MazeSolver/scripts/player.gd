@@ -9,6 +9,7 @@ func _ready():
 	sprite_size = get_node("Sprite").get_texture().get_size() * get_node("Sprite").get_scale()
 #	set_darkness(false)
 	get_tree().connect("screen_resized",self,"_screen_resized")
+	add_to_group("Players")
 
 func set_process(val): # override
 	set_fixed_process(val)
@@ -45,7 +46,6 @@ func clamp_to_limits(motion):
 	return motion
 
 func set_limits(left,right,bottom,top=null):
-	print("Limits: ",left,", ",right,", ",bottom,", ",top)
 	var camera = get_node("Camera")
 	limit["left"] = left
 	camera.set_limit(MARGIN_LEFT,left)

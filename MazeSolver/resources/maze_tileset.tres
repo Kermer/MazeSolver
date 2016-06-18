@@ -14,45 +14,45 @@ vertices = Vector2Array( -8, -32, 8, -32, 8, -8, -8, -8, 32, -8, 32, 8, 8, 8, -8
 polygons = [ IntArray( 0, 1, 2, 3 ), IntArray( 2, 4, 5, 6 ), IntArray( 3, 2, 6, 7 ), IntArray( 6, 8, 9, 7 ), IntArray( 3, 7, 10, 11 ) ]
 outlines = [ Vector2Array( -8, -32, -8, -8, -32, -8, -32, 8, -8, 8, -8, 32, 8, 32, 8, 8, 32, 8, 32, -8, 8, -8, 8, -32 ) ]
 
-[sub_resource type="NavigationPolygon" id=3]
+[sub_resource type="NavigationPolygon" id=2]
 
 vertices = Vector2Array( -32, 8, -32, -8, -8, -8, 32, 8, -8, -32, 8, -32, 8, -8, 32, -8 )
 polygons = [ IntArray( 0, 1, 2, 3 ), IntArray( 2, 4, 5, 6 ), IntArray( 3, 2, 6 ), IntArray( 3, 6, 7 ) ]
 outlines = [ Vector2Array( -32, 8, 32, 8, 32, -8, 8, -8, 8, -32, -8, -32, -8, -8, -32, -8 ) ]
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
+[sub_resource type="ConvexPolygonShape2D" id=3]
 
 custom_solver_bias = 0.0
 points = Vector2Array( -32, 26, 32, 26, 32, 38, -32, 38 )
 
-[sub_resource type="NavigationPolygon" id=6]
+[sub_resource type="NavigationPolygon" id=4]
 
 vertices = Vector2Array( -32, 8, -32, -8, -8, -8, 8, 8, 8, -32, -8, -32 )
 polygons = [ IntArray( 0, 1, 2, 3 ), IntArray( 4, 3, 2, 5 ) ]
 outlines = [ Vector2Array( -32, 8, 8, 8, 8, -32, -8, -32, -8, -8, -32, -8 ) ]
 
-[sub_resource type="ConvexPolygonShape2D" id=4]
+[sub_resource type="ConvexPolygonShape2D" id=5]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 26, -32, 38, -32, 38, 38, 26, 26 )
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
+[sub_resource type="ConvexPolygonShape2D" id=6]
 
 custom_solver_bias = 0.0
 points = Vector2Array( 26, 26, 38, 38, -32, 38, -32, 26 )
 
-[sub_resource type="NavigationPolygon" id=9]
+[sub_resource type="NavigationPolygon" id=7]
 
 vertices = Vector2Array( -32, -8, 32, -8, 32, 8, -32, 8 )
 polygons = [ IntArray( 0, 1, 2, 3 ) ]
 outlines = [ Vector2Array( -32, -8, 32, -8, 32, 8, -32, 8 ) ]
 
-[sub_resource type="ConvexPolygonShape2D" id=7]
+[sub_resource type="ConvexPolygonShape2D" id=8]
 
 custom_solver_bias = 0.0
 points = Vector2Array( -32, 26, 32, 26, 32, 32, -32, 32 )
 
-[sub_resource type="ConvexPolygonShape2D" id=8]
+[sub_resource type="ConvexPolygonShape2D" id=9]
 
 custom_solver_bias = 0.0
 points = Vector2Array( -32, -32, 32, -32, 32, -26, -32, -26 )
@@ -91,9 +91,9 @@ points = Vector2Array( 38, -32, 38, 38, 26, 26, 26, -32 )
 1/region = Rect2( 0, 0, 0, 0 )
 1/occluder_offset = Vector2( 32, 32 )
 1/navigation_offset = Vector2( 32, 32 )
-1/navigation = SubResource( 3 )
+1/navigation = SubResource( 2 )
 1/shape_offset = Vector2( 32, 32 )
-1/shapes = [ SubResource( 2 ) ]
+1/shapes = [ SubResource( 3 ) ]
 2/name = "Wall_2"
 2/texture = ExtResource( 4 )
 2/tex_offset = Vector2( 0, 0 )
@@ -101,9 +101,9 @@ points = Vector2Array( 38, -32, 38, 38, 26, 26, 26, -32 )
 2/region = Rect2( 0, 0, 0, 0 )
 2/occluder_offset = Vector2( 32, 32 )
 2/navigation_offset = Vector2( 32, 32 )
-2/navigation = SubResource( 6 )
+2/navigation = SubResource( 4 )
 2/shape_offset = Vector2( 32, 32 )
-2/shapes = [ SubResource( 4 ), SubResource( 5 ) ]
+2/shapes = [ SubResource( 5 ), SubResource( 6 ) ]
 3/name = "Wall_2_opposite"
 3/texture = ExtResource( 5 )
 3/tex_offset = Vector2( 0, 0 )
@@ -111,9 +111,9 @@ points = Vector2Array( 38, -32, 38, 38, 26, 26, 26, -32 )
 3/region = Rect2( 0, 0, 0, 0 )
 3/occluder_offset = Vector2( 32, 32 )
 3/navigation_offset = Vector2( 32, 32 )
-3/navigation = SubResource( 9 )
+3/navigation = SubResource( 7 )
 3/shape_offset = Vector2( 32, 32 )
-3/shapes = [ SubResource( 7 ), SubResource( 8 ) ]
+3/shapes = [ SubResource( 8 ), SubResource( 9 ) ]
 4/name = "Wall_3"
 4/texture = ExtResource( 6 )
 4/tex_offset = Vector2( 0, 0 )
