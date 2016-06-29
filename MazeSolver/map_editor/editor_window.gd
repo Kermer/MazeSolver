@@ -155,7 +155,8 @@ func get_packed_level(level_name):
 	level.get_node("StartPos").replace_by( start_pos )
 	var end_pos = items_data["End Pos"].scene.instance()
 	end_pos.set_name("EndPos"); end_pos.set_pos(level.get_node("EndPos").get_pos())
-	level.get_node("EndPos").replace_by( end_pos )
+	level.remove_child( level.get_node("EndPos") )
+	level.add_child( end_pos )
 	level.remove_child( level.get_node("HELPERS") )
 	level.set_script(level_script)
 	level.set_name(level_name)
@@ -164,8 +165,8 @@ func get_packed_level(level_name):
 	level.set_meta("level_grid",grid)
 	level.set_meta("level_width",WIDTH)
 	level.set_meta("level_height",HEIGHT)
-	level.WIDTH = WIDTH # scrip var
-	level.HEIGHT = HEIGHT
+	level.set("WIDTH",WIDTH)
+	level.set("HEIGHT",HEIGHT)
 	recursive_set_owner(level,level)
 	packed_scene.pack(level)
 	packed_scene.set_meta("level_name",level_name)
