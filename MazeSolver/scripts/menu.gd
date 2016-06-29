@@ -4,6 +4,7 @@ extends Control
 var sub_menu = [0,"Main"]
 
 func _ready():
+	get_tree().set_auto_accept_quit(false)
 	for child in get_node("Main").get_children():
 		if child extends Button:
 			child.connect("pressed",self,"_on_"+child.get_name()+"_pressed")
@@ -37,10 +38,20 @@ func start_level(file_name):
 	game.start_classic(file_name)
 	hide()
 
+func _notification(what):
+	if what == 7: # WM_QUIT_REQUEST
+		_go_back()
+
+func _on_BQuit_pressed():
+	_go_back()
+
 func _go_back():
 	if get_parent().has_node("Game"):
-		pass
+		get_parent().get_node("Game").queue_free()
+		show()
 	elif sub_menu[0] == 1:
 		get_node(sub_menu[1]).hide()
 		get_node("Main").show()
 		sub_menu = [0,"Main"]
+	elif sub_menu[0] == 0:
+		get_tree().quit()

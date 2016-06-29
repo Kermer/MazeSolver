@@ -175,7 +175,7 @@ func recursive_set_owner(owner,node):
 	
 	for child in node.get_children():
 		child.set_owner(owner)
-		if node.get_name() == "Collectibles": # otherwise "Editable Children" glitches
+		if node.get_name() == "Collectibles" or child.get_name() == "EndPos": # otherwise "Editable Children" glitches
 			continue
 		recursive_set_owner(owner,child)
 
