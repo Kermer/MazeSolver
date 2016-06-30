@@ -30,7 +30,9 @@ func _on_Start_BEndless():
 	hide()
 
 func _on_Start_BClassic():
-	start_level("level_001.tscn")
+	get_node("Start").hide()
+	get_node("LevelSelection").show()
+	sub_menu = [2,"LevelSel"]
 
 func start_level(file_name):
 	var game = preload("res://scenes/game.tscn").instance()
@@ -49,6 +51,11 @@ func _go_back():
 	if get_parent().has_node("Game"):
 		get_parent().get_node("Game").queue_free()
 		show()
+	elif sub_menu[0] == 2:
+		if sub_menu[1] == "LevelSel":
+			get_node("LevelSelection").hide()
+			get_node("Start").show()
+			sub_menu = [1,"Start"]
 	elif sub_menu[0] == 1:
 		get_node(sub_menu[1]).hide()
 		get_node("Main").show()

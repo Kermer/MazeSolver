@@ -74,12 +74,10 @@ var objects = {}
 
 
 
-var DEFAULT_ICON = null
 
 func _ready():
 #	OS.set_window_maximized(true)
 	init()
-	DEFAULT_ICON = get_icon("Node")
 	item_tree.connect("item_collapsed",self,"_titem_collapsed")
 	item_tree.connect("cell_selected",self,"_titem_selected")
 	item_tree.connect("item_activated",item_tree,"hide")
@@ -89,7 +87,6 @@ func _ready():
 func init():
 	fill_tree()
 	get_node("Camera").make_current()
-	set_process(true)
 
 func set_process(val): # override
 	.set_process(val)
@@ -144,6 +141,82 @@ func toggle_selection_window():
 	else:
 		item_tree.hide()
 
+func set_level_name( s ):
+	s = str(s).strip_edges()
+	get_node("../CL/EscMenu/LevelName").set_text(s)
+	if s == "":
+		s = "_UNNAMED_"
+	get_node("CL/LevelName").set_text(s)
+
+func clear_level():
+	var level = get_node("Level")
+	set_level_name("")
+	tmap.clear()
+	grid.clear()
+	for obj_pos in objects:
+		objects[obj_pos].queue_free()
+	objects.clear()
+	var pos = Vector2(32,-32)
+	level.get_node("StartPos").set_pos(pos)
+	level.get_node("EndPos").set_pos(pos)
+	WIDTH = 4; HEIGHT = 4
+	level.draw_size(WIDTH*cell_size,HEIGHT*cell_size)
+
+func load_level(new_level):
+	var level = get_node("Level")
+	# get the name
+	var lname = ""
+	if new_level.has_meta("level_name"):
+		lname = new_level.get_meta("level_name")
+		print("Loading level name from metadata")
+	else:
+		lname = new_level.get_name()
+		print("Loading level name from Node name")
+	print("Level name: '",lname,"'")
+	if lname == "_UNNAMED_":
+		lname = ""
+	set_level_name(lname)
+	# check if it's correct / was made using map editor
+	if !new_level.has_meta("level_grid"):
+		print("WARNING! Level doesn't contain 'level_grid'! Skipping TileMap loading!")
+		print("   Was it made using map editor?")
+	else:
+		# load TileMap and 'grid'
+		level.remove_child(tmap)
+		tmap.free()
+		grid = new_level.get_meta("level_grid")
+		var new_tmap = new_level.get_node("TileMap")
+		new_level.remove_child(new_tmap)
+		level.add_child(new_tmap)
+		level.move_child(new_tmap,0)
+		print(new_tmap.get_name())
+		tmap = new_tmap
+	for obj_pos in objects:
+		objects[obj_pos].queue_free()
+	objects.clear()
+	# wait 2 frames, to make sure our objects are removed before we continue
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+	# load Collectibles
+	for collectible in new_level.get_node("Objects/Collectibles").get_children():
+		var idata = null
+		var ipos
+		if collectible.get("type") == "IncEnergy":
+			idata = items_data["Increase Energy"]
+			ipos = collectible.get_pos()
+		if idata != null:
+			add_object(idata,ipos)
+	# TODO load other Objects
+	
+	# load Start/EndPos
+	level.get_node("StartPos").set_pos( new_level.get_node("StartPos").get_pos() )
+	level.get_node("EndPos").set_pos( new_level.get_node("EndPos").get_pos() )
+	# WIDTH / HEIGHT
+	WIDTH = new_level.get("WIDTH")
+	HEIGHT = new_level.get("HEIGHT")
+	level.draw_size( WIDTH*cell_size, HEIGHT*cell_size )
+	pass
+
 func get_packed_level(level_name):
 	var level = get_node("Level").duplicate()
 	# replacing Nodes (with other type or scene)
@@ -158,6 +231,8 @@ func get_packed_level(level_name):
 	level.remove_child( level.get_node("EndPos") )
 	level.add_child( end_pos )
 	level.remove_child( level.get_node("HELPERS") )
+	if level_name == "":
+		level_name = "_UNNAMED_"
 	level.set_script(level_script)
 	level.set_name(level_name)
 	var packed_scene = PackedScene.new()
@@ -293,6 +368,7 @@ func remove_item(global_pos=null):
 			remove_path(global_pos)
 	elif selected_item.category == "Objects":
 		remove_object(global_pos)
+
 
 func add_path(global_pos):
 	var pos = tmap.world_to_map(global_pos)

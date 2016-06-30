@@ -1,16 +1,15 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://themes/menu_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/menu.gd" type="Script" id=2]
+[ext_resource path="res://scripts/level_selection.gd" type="Script" id=3]
 
 [node name="Menu" type="Control"]
 
 anchor/left = 3
-anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
 margin/left = 360.0
-margin/top = 640.0
 margin/right = -360.0
 margin/bottom = -640.0
 focus/ignore_mouse = true
@@ -22,12 +21,14 @@ script/script = ExtResource( 2 )
 
 [node name="Main" type="Control" parent="."]
 
+visibility/visible = false
 margin/right = 720.0
 margin/bottom = 1280.0
 focus/ignore_mouse = true
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
+__meta__ = { "_editor_collapsed":true }
 
 [node name="BStart" type="Button" parent="Main"]
 
@@ -78,7 +79,6 @@ flat = false
 
 [node name="Start" type="Control" parent="."]
 
-visibility/visible = false
 margin/right = 720.0
 margin/bottom = 1280.0
 focus/ignore_mouse = true
@@ -117,11 +117,51 @@ flat = false
 [node name="Options" type="Control" parent="."]
 
 visibility/visible = false
-anchor/right = 1
-anchor/bottom = 1
+margin/right = 720.0
+margin/bottom = 1280.0
 focus/ignore_mouse = true
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
+
+[node name="LevelSelection" type="Control" parent="."]
+
+visibility/visible = false
+margin/right = 720.0
+margin/bottom = 1280.0
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+script/script = ExtResource( 3 )
+
+[node name="Buttons" type="Control" parent="LevelSelection"]
+
+margin/left = 92.0
+margin/top = 224.0
+margin/right = 628.0
+margin/bottom = 1184.0
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+
+[node name="Label" type="Label" parent="LevelSelection"]
+
+anchor/left = 3
+anchor/right = 3
+margin/left = 320.0
+margin/top = 128.0
+margin/right = -320.0
+margin/bottom = 160.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+text = "Levels:"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 

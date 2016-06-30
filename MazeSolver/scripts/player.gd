@@ -1,7 +1,7 @@
 
 extends KinematicBody2D
 
-const speed = 250
+const speed = 150
 var sprite_size = Vector2()
 var limit = {}
 

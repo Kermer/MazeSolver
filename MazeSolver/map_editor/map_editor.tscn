@@ -45,22 +45,31 @@ scale = Vector2( 1, 1 )
 [node name="StartMenu" type="Panel" parent="CL"]
 
 visibility/visible = false
-margin/left = 104.0
-margin/top = 160.0
-margin/right = 616.0
-margin/bottom = 1120.0
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 256.0
+margin/top = 480.0
+margin/right = -256.0
+margin/bottom = -480.0
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
+theme/theme = ExtResource( 1 )
 __meta__ = { "_editor_collapsed":true }
 
 [node name="BNew" type="Button" parent="CL/StartMenu"]
 
-margin/left = 96.0
-margin/top = 128.0
-margin/right = 420.0
-margin/bottom = 224.0
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 160.0
+margin/top = 352.0
+margin/right = -164.0
+margin/bottom = 256.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -71,25 +80,33 @@ flat = false
 
 [node name="BLoad" type="Button" parent="CL/StartMenu"]
 
-margin/left = 96.0
-margin/top = 320.0
-margin/right = 420.0
-margin/bottom = 416.0
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 160.0
+margin/top = 160.0
+margin/right = -164.0
+margin/bottom = 64.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-disabled = true
 toggle_mode = false
 text = "Load Level"
 flat = false
 
 [node name="BBack" type="Button" parent="CL/StartMenu"]
 
-margin/left = 96.0
-margin/top = 512.0
-margin/right = 420.0
-margin/bottom = 608.0
+visibility/visible = false
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 160.0
+margin/top = -32.0
+margin/right = -164.0
+margin/bottom = -128.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -102,10 +119,14 @@ flat = false
 [node name="EscMenu" type="Panel" parent="CL"]
 
 visibility/visible = false
-margin/left = 104.0
-margin/top = 160.0
-margin/right = 616.0
-margin/bottom = 1120.0
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 256.0
+margin/top = 480.0
+margin/right = -256.0
+margin/bottom = -480.0
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -115,10 +136,14 @@ __meta__ = { "_editor_collapsed":true }
 
 [node name="BSave" type="Button" parent="CL/EscMenu"]
 
-margin/left = 96.0
-margin/top = 224.0
-margin/right = 420.0
-margin/bottom = 320.0
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 160.0
+margin/top = 256.0
+margin/right = -164.0
+margin/bottom = 160.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -129,10 +154,14 @@ flat = false
 
 [node name="BContinue" type="Button" parent="CL/EscMenu"]
 
-margin/left = 96.0
-margin/top = 384.0
-margin/right = 420.0
-margin/bottom = 480.0
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 160.0
+margin/top = 128.0
+margin/right = -164.0
+margin/bottom = 32.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -141,12 +170,51 @@ toggle_mode = false
 text = "Continue"
 flat = false
 
+[node name="BLoad" type="Button" parent="CL/EscMenu"]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 160.0
+margin/right = -164.0
+margin/bottom = -96.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "Load a Level"
+flat = false
+
+[node name="BNew" type="Button" parent="CL/EscMenu"]
+
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 160.0
+margin/top = -128.0
+margin/right = -164.0
+margin/bottom = -224.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+text = "New Level"
+flat = false
+
 [node name="BQuit" type="Button" parent="CL/EscMenu"]
 
-margin/left = 96.0
-margin/top = 704.0
-margin/right = 420.0
-margin/bottom = 800.0
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 160.0
+margin/top = -256.0
+margin/right = -164.0
+margin/bottom = -352.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
@@ -158,16 +226,20 @@ flat = false
 
 [node name="LevelName" type="LineEdit" parent="CL/EscMenu"]
 
-margin/left = 64.0
-margin/top = 160.0
-margin/right = 448.0
-margin/bottom = 196.0
+anchor/left = 3
+anchor/top = 3
+anchor/right = 3
+anchor/bottom = 3
+margin/left = 192.0
+margin/top = 320.0
+margin/right = -192.0
+margin/bottom = 284.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-text = "NoName"
-max_length = 0
+text = ""
+max_length = 32
 editable = true
 secret = false
 
@@ -197,7 +269,22 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-popup/exclusive = false
+popup/exclusive = true
+window/title = "Save a File"
+dialog/hide_on_ok = false
+
+[node name="LoadDialog" type="FileDialog" parent="CL"]
+
+visibility/visible = false
+margin/left = 40.0
+margin/top = 128.0
+margin/right = 688.0
+margin/bottom = 800.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+popup/exclusive = true
 window/title = "Save a File"
 dialog/hide_on_ok = false
 
@@ -236,8 +323,6 @@ tile_data = IntArray(  )
 
 [node name="Objects" type="Node2D" parent="EditorWindow/Level"]
 
-__meta__ = { "_editor_collapsed":true }
-
 [node name="Collectibles" type="Node2D" parent="EditorWindow/Level/Objects"]
 
 [node name="StartPos" type="Sprite" parent="EditorWindow/Level"]
@@ -249,7 +334,7 @@ texture = ExtResource( 5 )
 
 [node name="EndPos" type="Sprite" parent="EditorWindow/Level"]
 
-transform/pos = Vector2( 72, -64 )
+transform/pos = Vector2( 64, -64 )
 texture = ExtResource( 6 )
 
 [node name="HELPERS" type="Node2D" parent="EditorWindow/Level"]
@@ -320,7 +405,6 @@ layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-__meta__ = { "_editor_collapsed":true }
 
 [node name="ItemSelection" type="Tree" parent="EditorWindow/CL"]
 
@@ -334,5 +418,20 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 script/script = SubResource( 4 )
+
+[node name="LevelName" type="Label" parent="EditorWindow/CL"]
+
+margin/left = 40.0
+margin/right = 680.0
+margin/bottom = 77.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+theme/theme = ExtResource( 1 )
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 
