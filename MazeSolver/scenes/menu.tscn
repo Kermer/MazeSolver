@@ -1,17 +1,21 @@
-[gd_scene load_steps=4 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://themes/menu_theme.tres" type="Theme" id=1]
 [ext_resource path="res://scripts/menu.gd" type="Script" id=2]
-[ext_resource path="res://scripts/level_selection.gd" type="Script" id=3]
+[ext_resource path="res://gfx/ui/background_universal.jpg" type="Texture" id=3]
+[ext_resource path="res://gfx/ui/buttons/play.png" type="Texture" id=4]
+[ext_resource path="res://gfx/ui/buttons/_click_mask.pbm" type="BitMap" id=5]
+[ext_resource path="res://gfx/ui/buttons/settings.png" type="Texture" id=6]
+[ext_resource path="res://gfx/ui/buttons/exit.png" type="Texture" id=7]
+[ext_resource path="res://gfx/ui/headers/logo.png" type="Texture" id=8]
+[ext_resource path="res://scripts/level_selection.gd" type="Script" id=9]
+[ext_resource path="res://themes/fonts/centurygothic_80.fnt" type="Font" id=10]
+[ext_resource path="res://themes/fonts/centurygothic_50.fnt" type="Font" id=11]
 
 [node name="Menu" type="Control"]
 
-anchor/left = 3
-anchor/right = 3
-anchor/bottom = 3
-margin/left = 360.0
-margin/right = -360.0
-margin/bottom = -640.0
+margin/right = 720.0
+margin/bottom = 1280.0
 focus/ignore_mouse = true
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -19,7 +23,74 @@ size_flags/vertical = 2
 theme/theme = ExtResource( 1 )
 script/script = ExtResource( 2 )
 
+[node name="Background" type="Sprite" parent="."]
+
+transform/scale = Vector2( 0.688889, 0.683333 )
+texture = ExtResource( 3 )
+centered = false
+
 [node name="Main" type="Control" parent="."]
+
+margin/right = 720.0
+margin/bottom = 1280.0
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+__meta__ = { "_editor_collapsed":true }
+
+[node name="BStart" type="TextureButton" parent="Main"]
+
+margin/left = 268.0
+margin/top = 480.0
+margin/right = 484.0
+margin/bottom = 696.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+textures/normal = ExtResource( 4 )
+textures/click_mask = ExtResource( 5 )
+params/scale = Vector2( 0.9, 0.9 )
+
+[node name="BSettings" type="TextureButton" parent="Main"]
+
+margin/left = 292.0
+margin/top = 768.0
+margin/right = 460.0
+margin/bottom = 936.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+textures/normal = ExtResource( 6 )
+textures/click_mask = ExtResource( 5 )
+params/scale = Vector2( 0.7, 0.7 )
+
+[node name="BQuit" type="TextureButton" parent="Main"]
+
+margin/left = 292.0
+margin/top = 992.0
+margin/right = 460.0
+margin/bottom = 1160.0
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+textures/normal = ExtResource( 7 )
+textures/click_mask = ExtResource( 5 )
+params/scale = Vector2( 0.7, 0.7 )
+
+[node name="Logo" type="Sprite" parent="Main"]
+
+transform/pos = Vector2( 360, 224 )
+transform/scale = Vector2( 0.7, 0.7 )
+texture = ExtResource( 8 )
+
+[node name="Start" type="Control" parent="."]
 
 visibility/visible = false
 margin/right = 720.0
@@ -29,62 +100,6 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 __meta__ = { "_editor_collapsed":true }
-
-[node name="BStart" type="Button" parent="Main"]
-
-anchor/right = 1
-anchor/bottom = 1
-margin/left = 200.0
-margin/top = 384.0
-margin/right = 200.0
-margin/bottom = 800.0
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-toggle_mode = false
-text = "Play"
-flat = false
-
-[node name="BOptions" type="Button" parent="Main"]
-
-anchor/right = 1
-anchor/bottom = 1
-margin/left = 200.0
-margin/top = 576.0
-margin/right = 200.0
-margin/bottom = 608.0
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-disabled = true
-toggle_mode = false
-text = "Options"
-flat = false
-
-[node name="BQuit" type="Button" parent="Main"]
-
-margin/left = 200.0
-margin/top = 768.0
-margin/right = 520.0
-margin/bottom = 864.0
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-toggle_mode = false
-text = "Quit"
-flat = false
-
-[node name="Start" type="Control" parent="."]
-
-margin/right = 720.0
-margin/bottom = 1280.0
-focus/ignore_mouse = true
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
 
 [node name="BClassic" type="Button" parent="Start"]
 
@@ -114,7 +129,7 @@ toggle_mode = false
 text = "Endless Mode"
 flat = false
 
-[node name="Options" type="Control" parent="."]
+[node name="Settings" type="Control" parent="."]
 
 visibility/visible = false
 margin/right = 720.0
@@ -133,18 +148,8 @@ focus/ignore_mouse = true
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-script/script = ExtResource( 3 )
-
-[node name="Buttons" type="Control" parent="LevelSelection"]
-
-margin/left = 92.0
-margin/top = 224.0
-margin/right = 628.0
-margin/bottom = 1184.0
-focus/ignore_mouse = true
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 2
+script/script = ExtResource( 9 )
+__meta__ = { "_editor_collapsed":true }
 
 [node name="Label" type="Label" parent="LevelSelection"]
 
@@ -153,13 +158,62 @@ anchor/right = 3
 margin/left = 320.0
 margin/top = 128.0
 margin/right = -320.0
-margin/bottom = 160.0
+margin/bottom = 320.0
 focus/ignore_mouse = true
-focus/stop_mouse = true
+focus/stop_mouse = false
 size_flags/horizontal = 2
-text = "Levels:"
+custom_fonts/font = ExtResource( 10 )
+text = "SELECT LEVEL"
 align = 1
 valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Completed" type="Label" parent="LevelSelection"]
+
+margin/left = 40.0
+margin/top = 256.0
+margin/right = 680.0
+margin/bottom = 384.0
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 11 )
+text = "0 / 99 Completed"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Current" type="Button" parent="LevelSelection"]
+
+visibility/self_opacity = 0.0
+margin/left = 104.0
+margin/top = 352.0
+margin/right = 616.0
+margin/bottom = 1056.0
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+toggle_mode = false
+flat = false
+
+[node name="Label" type="Label" parent="LevelSelection/Current"]
+
+margin/left = 32.0
+margin/right = 480.0
+margin/bottom = 672.0
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+custom_fonts/font = ExtResource( 11 )
+text = "ThisIsLevelName and it\'s wrapping"
+align = 1
+valign = 1
+autowrap = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1

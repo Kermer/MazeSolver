@@ -6,14 +6,14 @@ var sub_menu = [0,"Main"]
 func _ready():
 	get_tree().set_auto_accept_quit(false)
 	for child in get_node("Main").get_children():
-		if child extends Button:
+		if child extends BaseButton:
 			child.connect("pressed",self,"_on_"+child.get_name()+"_pressed")
 	for child in get_node("Start").get_children():
-		if child extends Button:
+		if child extends BaseButton:
 			child.connect("pressed",self,"_on_Start_"+child.get_name())
 	
 	for c in get_children():
-		if c.has_method("hide"):
+		if c extends Control:
 			c.hide()
 	get_node("Main").show()
 
@@ -34,23 +34,31 @@ func _on_Start_BClassic():
 	get_node("LevelSelection").show()
 	sub_menu = [2,"LevelSel"]
 
-func start_level(file_name):
+func start_level(file_name,index=-1):
 	var game = preload("res://scenes/game.tscn").instance()
 	get_parent().add_child(game)
-	game.start_classic(file_name)
+	game.start_classic(file_name,index)
 	hide()
+
+func game_over():
+	if sub_menu[1] == "LevelSel":
+		get_node("LevelSelection").show()
+	show()
 
 func _notification(what):
 	if what == 7: # WM_QUIT_REQUEST
 		_go_back()
 
 func _on_BQuit_pressed():
+	print("BQuit pressed")
 	_go_back()
 
 func _go_back():
 	if get_parent().has_node("Game"):
 		get_parent().get_node("Game").queue_free()
 		show()
+		if sub_menu[1] == "LevelSel":
+			get_node("LevelSelection").show()
 	elif sub_menu[0] == 2:
 		if sub_menu[1] == "LevelSel":
 			get_node("LevelSelection").hide()

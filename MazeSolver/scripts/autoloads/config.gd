@@ -5,8 +5,12 @@ var cfg = ConfigFile.new()
 const path = "user://config.cfg"
 
 var DEFAULT = {"me_last_path":"",
+			"levels_completed":0,
+			"all_levels_unlocked":false,
 		}
 var mapp = {"me_path":["MapEditor","me_last_path"],
+			"levels_completed":["Game","levels_completed"],
+			"all_levels_unlocked":["Game","all_levels_unlocked"],
 		}
 # const VIDEO = ["resolution","fullscreen"]
 # const MENU = ["connect_ip"]

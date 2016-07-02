@@ -3,6 +3,7 @@ extends Node2D
 
 var level = null
 var level_type = ""
+var level_index = -1
 onready var player = get_node("Player")
 
 var player_energy = 100
@@ -41,12 +42,13 @@ func start_endless():
 	ready_player()
 	pass
 
-func start_classic( file_name ):
+func start_classic( file_name,index=-1 ):
 	var level_scene = load("res://levels/"+file_name)
 	if level_scene == null:
 		dprint(str("Failed to load level. file_name=\"",file_name,"\""))
 		return
 	level_type = "classic"
+	level_index = index
 	level = level_scene.instance()
 	add_child(level)
 	move_child(level,0)
@@ -77,12 +79,18 @@ func _on_pickup( pickup_type, _player ):
 
 func _on_win(_player):
 	dprint("YOU WIN!")
-	get_node("../Menu").show()
+	get_node("../Menu").game_over()
+	if level_index > -1:
+		var new_count = level_index+1
+		var current_count = Config.get_val("levels_completed")
+		if new_count > current_count:
+			Config.set_val("levels_completed",new_count)
+		pass
 	queue_free()
 
 func _on_lose():
 	dprint("YOU LOSE!")
-	get_node("../Menu").show()
+	get_node("../Menu").game_over()
 	queue_free()
 
 
