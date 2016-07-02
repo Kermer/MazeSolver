@@ -43,7 +43,7 @@ const items_data = {
 	"Start Pos":{"name":"Start Pos","category":"Environment",
 		"preview":{"texture":preload("res://map_editor/previews/start_pos.png"),"scale":Vector2(0.5,0.5)}
 		},
-	"End Pos":{"name":"End Pos","category":"Environment",
+	"End Pos":{"name":"End Pos","category":"Environment","path":"EndPos",
 		"preview":{"texture":preload("res://map_editor/previews/end_pos.png")},
 		"scene":preload("res://scenes/end_pos.tscn")
 		},
@@ -210,7 +210,12 @@ func load_level(new_level):
 	
 	# load Start/EndPos
 	level.get_node("StartPos").set_pos( new_level.get_node("StartPos").get_pos() )
-	level.get_node("EndPos").set_pos( new_level.get_node("EndPos").get_pos() )
+	var n_end_pos = new_level.get_node("EndPos")
+	if n_end_pos.get_type() != "Node2D": # single end pos
+		add_object(items_data["End Pos"],n_end_pos.get_pos())
+	else: # multiple end pos support
+		for end_pos in n_end_pos.get_children():
+			add_object(items_data["End Pos"],end_pos.get_pos())
 	# WIDTH / HEIGHT
 	WIDTH = new_level.get("WIDTH")
 	HEIGHT = new_level.get("HEIGHT")
@@ -226,10 +231,6 @@ func get_packed_level(level_name):
 	var start_pos = Position2D.new()
 	start_pos.set_name("StartPos"); start_pos.set_pos(level.get_node("StartPos").get_pos())
 	level.get_node("StartPos").replace_by( start_pos )
-	var end_pos = items_data["End Pos"].scene.instance()
-	end_pos.set_name("EndPos"); end_pos.set_pos(level.get_node("EndPos").get_pos())
-	level.remove_child( level.get_node("EndPos") )
-	level.add_child( end_pos )
 	level.remove_child( level.get_node("HELPERS") )
 	if level_name == "":
 		level_name = "_UNNAMED_"
@@ -251,7 +252,7 @@ func recursive_set_owner(owner,node):
 	
 	for child in node.get_children():
 		child.set_owner(owner)
-		if node.get_name() == "Collectibles" or child.get_name() == "EndPos": # otherwise "Editable Children" glitches
+		if node.get_name() == "Collectibles" or node.get_name() == "EndPos": # otherwise "Editable Children" glitches
 			continue
 		recursive_set_owner(owner,child)
 
@@ -338,8 +339,10 @@ func place_item(global_pos=null):
 			global_pos = tmap.map_to_world(tpos) + Vector2(cell_size,cell_size)/2
 			get_node("Level/StartPos").set_pos( global_pos )
 		elif selected_item.name == "End Pos":
-			global_pos = tmap.map_to_world(tpos) + Vector2(cell_size,cell_size)/2
-			get_node("Level/EndPos").set_pos( global_pos )
+			# support multiple end pos
+			add_object(selected_item,global_pos)
+#			global_pos = tmap.map_to_world(tpos) + Vector2(cell_size,cell_size)/2
+#			get_node("Level/EndPos").set_pos( global_pos )
 		elif selected_item.name == "Right Border":
 			WIDTH = tpos.x+1
 			get_node("Level").draw_size(WIDTH*cell_size,HEIGHT*cell_size)
@@ -368,6 +371,9 @@ func remove_item(global_pos=null):
 			remove_path(global_pos)
 	elif selected_item.category == "Objects":
 		remove_object(global_pos)
+	elif selected_item.category == "Environment":
+		if selected_item.name == "End Pos":
+			remove_object(global_pos)
 
 
 func add_path(global_pos):

@@ -44,8 +44,6 @@ tile_data = IntArray( -1114104, 1610612738, -1114103, 1610612737, -1114102, -107
 
 [node name="Objects" type="Node2D" parent="."]
 
-__meta__ = { "_editor_collapsed":true }
-
 [node name="Collectibles" type="Node2D" parent="Objects"]
 
 [node name="Collectible" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
@@ -65,7 +63,7 @@ monitorable = false
 script/script = ExtResource( 4 )
 type = "IncEnergy"
 
-[node name="Collectible81" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
+[node name="Collectible154" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 352, -544 )
 z/z = 30
@@ -82,7 +80,7 @@ monitorable = false
 script/script = ExtResource( 4 )
 type = "IncEnergy"
 
-[node name="Collectible82" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
+[node name="Collectible155" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 32, -224 )
 z/z = 30
@@ -99,7 +97,7 @@ monitorable = false
 script/script = ExtResource( 4 )
 type = "IncEnergy"
 
-[node name="Collectible84" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
+[node name="Collectible156" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 352, -992 )
 z/z = 30
@@ -116,7 +114,7 @@ monitorable = false
 script/script = ExtResource( 4 )
 type = "IncEnergy"
 
-[node name="Collectible85" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
+[node name="Collectible157" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
 
 transform/pos = Vector2( 160, -480 )
 z/z = 30
@@ -137,7 +135,9 @@ type = "IncEnergy"
 
 transform/pos = Vector2( 224, -96 )
 
-[node name="EndPos" type="Area2D" parent="." instance=ExtResource( 5 )]
+[node name="EndPos" type="Node2D" parent="."]
+
+[node name="EndPos" type="Area2D" parent="EndPos" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 608, -992 )
 z/z = 35

@@ -56,7 +56,8 @@ func start_classic( file_name ):
 	player.update_limit("top",top_limit)
 
 func ready_level():
-	level.get_node("EndPos").connect("player_enter",self,"_on_win")
+	for end_pos in level.get_node("EndPos").get_children():
+		end_pos.connect("player_enter",self,"_on_win")
 	for collectible in get_tree().get_nodes_in_group("Collectibles"):
 		collectible.connect("player_enter",self,"_on_pickup")
 

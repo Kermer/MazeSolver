@@ -1,0 +1,12 @@
+Idea and design:
+	Sumit Kumar Sinha
+	Raj Aryan
+
+Programming:
+	Sebastian Holc (Kermer)
+
+Graphics:
+	Sumit Kumar Sinha
+
+Level Design:
+	...
