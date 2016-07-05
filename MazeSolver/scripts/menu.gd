@@ -4,6 +4,7 @@ extends Control
 var sub_menu = [0,"Main"]
 
 func _ready():
+	get_parent().connect("resized",self,"_resized")
 	get_tree().set_auto_accept_quit(false)
 	for child in get_node("Main").get_children():
 		if child extends BaseButton:
@@ -70,3 +71,39 @@ func _go_back():
 		sub_menu = [0,"Main"]
 	elif sub_menu[0] == 0:
 		get_tree().quit()
+
+func _resized(default,current,mult):
+	var default_scale = current/default
+	var min_scale = Vector2(mult,mult)
+	
+	# Background
+	var scale = default_scale
+	get_node("Background").set_scale(scale)
+	scale = min_scale
+	# MAIN MENU
+	var logo = get_node("Main/Logo")
+	logo.set_scale(scale*0.7) # 0.7 is the default scale
+	var logo_size = logo.get_texture().get_size() * logo.get_scale()
+	logo.set_pos( Vector2(current.x/2, logo_size.y/2 + (160*mult)) ) # default +160 (y) from the top
+		# buttons
+	var bpos = Vector2(default.x/2,480) * default_scale
+	var bseparator = 64 * default_scale.y
+	for button in get_node("Main").get_children():
+		if button extends BaseButton:
+			button.set_texture_scale(scale*0.8)
+			button.set_size(Vector2(1,1)) # update to get the min size
+			var bsize = button.get_size().floor()
+			button.set_pos( bpos-Vector2(bsize.x/2,0) )
+			bpos += Vector2(0,bsize.y+bseparator)
+	
+	# LEVEL SELECTION
+	# laziness loop here ^^
+	get_node("LevelSelection/Scaling").set_scale(min_scale)
+	get_node("LevelSelection/Scaling").set_pos( current/2 )
+#	var labels = [ get_node("LevelSelection/Label"), get_node("LevelSelection/Completed") ] 
+#	for i in range(labels.size()):
+#		var label = labels[i]
+#		label.set_size( Vector2(current.x, label.get_size().y) ) # text will auto-center itself
+#		label.set_pos( Vector2(0, 160*mult + i*160*mult) ) # +160 from top
+	
+	

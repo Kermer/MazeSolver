@@ -31,6 +31,7 @@ centered = false
 
 [node name="Main" type="Control" parent="."]
 
+visibility/visible = false
 margin/right = 720.0
 margin/bottom = 1280.0
 focus/ignore_mouse = true
@@ -67,7 +68,7 @@ size_flags/vertical = 2
 toggle_mode = false
 textures/normal = ExtResource( 6 )
 textures/click_mask = ExtResource( 5 )
-params/scale = Vector2( 0.7, 0.7 )
+params/scale = Vector2( 0.8, 0.8 )
 
 [node name="BQuit" type="TextureButton" parent="Main"]
 
@@ -92,7 +93,6 @@ texture = ExtResource( 8 )
 
 [node name="Start" type="Control" parent="."]
 
-visibility/visible = false
 margin/right = 720.0
 margin/bottom = 1280.0
 focus/ignore_mouse = true
@@ -129,6 +129,20 @@ toggle_mode = false
 text = "Endless Mode"
 flat = false
 
+[node name="Label" type="Label" parent="Start"]
+
+margin/left = 200.0
+margin/top = 256.0
+margin/right = 453.0
+margin/bottom = 282.0
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+text = "* No scaling here yet"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
 [node name="Settings" type="Control" parent="."]
 
 visibility/visible = false
@@ -151,31 +165,33 @@ size_flags/vertical = 2
 script/script = ExtResource( 9 )
 __meta__ = { "_editor_collapsed":true }
 
-[node name="Label" type="Label" parent="LevelSelection"]
+[node name="Scaling" type="Node2D" parent="LevelSelection"]
 
-anchor/left = 3
-anchor/right = 3
-margin/left = 320.0
-margin/top = 128.0
-margin/right = -320.0
-margin/bottom = 320.0
+transform/pos = Vector2( 360, 640 )
+
+[node name="Label" type="Label" parent="LevelSelection/Scaling"]
+
+margin/left = -320.0
+margin/top = -512.0
+margin/right = 320.0
+margin/bottom = -352.0
 focus/ignore_mouse = true
 focus/stop_mouse = false
 size_flags/horizontal = 2
 custom_fonts/font = ExtResource( 10 )
 text = "SELECT LEVEL"
 align = 1
-valign = 1
+valign = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Completed" type="Label" parent="LevelSelection"]
+[node name="Completed" type="Label" parent="LevelSelection/Scaling"]
 
-margin/left = 40.0
-margin/top = 256.0
-margin/right = 680.0
-margin/bottom = 384.0
+margin/left = -320.0
+margin/top = -320.0
+margin/right = 320.0
+margin/bottom = -224.0
 focus/ignore_mouse = true
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -187,13 +203,13 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="Current" type="Button" parent="LevelSelection"]
+[node name="Current" type="Button" parent="LevelSelection/Scaling"]
 
 visibility/self_opacity = 0.0
-margin/left = 104.0
-margin/top = 352.0
-margin/right = 616.0
-margin/bottom = 1056.0
+margin/left = -256.0
+margin/top = -192.0
+margin/right = 256.0
+margin/bottom = 512.0
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
@@ -201,7 +217,7 @@ size_flags/vertical = 2
 toggle_mode = false
 flat = false
 
-[node name="Label" type="Label" parent="LevelSelection/Current"]
+[node name="Label" type="Label" parent="LevelSelection/Scaling/Current"]
 
 margin/left = 32.0
 margin/right = 480.0

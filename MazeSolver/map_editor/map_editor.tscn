@@ -417,8 +417,10 @@ script/script = SubResource( 4 )
 
 [node name="LevelName" type="Label" parent="EditorWindow/CL"]
 
-margin/left = 40.0
-margin/right = 680.0
+anchor/left = 3
+anchor/right = 3
+margin/left = 320.0
+margin/right = -320.0
 margin/bottom = 77.0
 focus/ignore_mouse = true
 focus/stop_mouse = true

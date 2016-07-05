@@ -12,7 +12,8 @@ const N=1; const S=2; const E=4; const W=8
 
 const tree_items = [
 	{"name":"Dynamic Tiles","tip":"Tiles which adjust to adjacent tiles","children":[
-		{"name":"Maze Path","tip":"Base of each maze"}
+		{"name":"Maze Path","tip":"Base of each maze"},
+		{"name":"Maze Wall","tip":"Opposite to 'Path'"}
 		]
 	},
 	{"name":"Objects","tip":"Placeable items with possible unique properties","children":[
@@ -34,6 +35,9 @@ const tree_items = [
 const items_data = {
 	"Maze Path":{"name":"Maze Path","category":"Tiles",
 		"preview":{"texture":preload("res://map_editor/previews/path.png")}
+		},
+	"Maze Wall":{"name":"Maze Wall","category":"Tiles",
+		"preview":{"texture":preload("res://map_editor/previews/wall.png")}
 		},
 	"Increase Energy":{"name":"Increase Energy","category":"Objects","path":"Objects/Collectibles",
 		"preview":{"texture":preload("res://map_editor/previews/increase_energy.png"),"scale":Vector2(0.5,0.5)},
@@ -158,7 +162,6 @@ func clear_level():
 	objects.clear()
 	var pos = Vector2(32,-32)
 	level.get_node("StartPos").set_pos(pos)
-	level.get_node("EndPos").set_pos(pos)
 	WIDTH = 4; HEIGHT = 4
 	level.draw_size(WIDTH*cell_size,HEIGHT*cell_size)
 
@@ -269,8 +272,9 @@ func _unhandled_input(event):
 #				mpos += Vector2(cell_size/2,cell_size/2)
 				mpos = tmap.map_to_world(tmap.world_to_map(mpos)) + Vector2(cell_size,cell_size)/2
 #				obj_preview.set_global_pos( mpos )
-				obj_preview.set_pos( mpos )
 				if selected_item.category == "Tiles":
+					if selected_item.name == "Maze Wall":
+						mpos = tmap.map_to_world(tmap.world_to_map(get_node("Level").get_local_mouse_pos() + Vector2(cell_size,cell_size)/2))
 					if mouse_drag == 1:
 						place_item()
 					elif mouse_drag == 2:
@@ -279,6 +283,7 @@ func _unhandled_input(event):
 					get_node("Level/HELPERS/VLine").set_pos( Vector2(mpos.x+0.5*cell_size,128) )
 				elif selected_item.name == "Top Border":
 					get_node("Level/HELPERS/HLine").set_pos( Vector2(-128,mpos.y-0.5*cell_size) )
+				obj_preview.set_pos( mpos )
 	elif event.type == InputEvent.MOUSE_BUTTON:
 		if event.button_index == 2:
 			if event.is_pressed():
@@ -325,6 +330,8 @@ func place_item(global_pos=null):
 	if selected_item.category == "Tiles":
 		if selected_item.name == "Maze Path":
 			add_path(global_pos)
+		elif selected_item.name == "Maze Wall":
+			add_wall(global_pos)
 		else:
 			return
 	# Objects
@@ -406,6 +413,67 @@ func add_path(global_pos):
 	tmap.set_cellv(pos,prop[0],prop[1],prop[2],prop[3])
 	
 	last_tile_pos = pos
+
+func add_wall(global_pos):
+	var pos = tmap.world_to_map(global_pos + Vector2(cell_size,cell_size)/2)
+	if last_tile_pos == pos: # still on the same tile
+		return
+	if last_tile_pos == null:
+		last_tile_pos = pos
+		return
+	
+	var dir = pos - last_tile_pos
+	last_tile_pos = pos
+	if dir == Vector2(0,1): # going DOWN
+		pos = tmap.world_to_map(global_pos + Vector2(cell_size,-cell_size)/2)
+		var poss = prepare_walls_grid(pos);var SEpos = poss[0];var SWpos = poss[1]
+		grid[SEpos] -= grid[SEpos]&W
+		grid[SWpos] -= grid[SWpos]&E
+		var prop = get_tile_properties(SEpos)
+		tmap.set_cellv(SEpos,prop[0],prop[1],prop[2],prop[3])
+		var prop = get_tile_properties(SWpos)
+		tmap.set_cellv(SWpos,prop[0],prop[1],prop[2],prop[3])
+	elif dir == Vector2(0,-1): # going UP
+		pos = tmap.world_to_map(global_pos + Vector2(cell_size,cell_size*2)/2)
+		var poss = prepare_walls_grid(pos);var NEpos = poss[3];var NWpos = poss[2]
+		grid[NEpos] -= grid[NEpos]&W
+		grid[NWpos] -= grid[NWpos]&E
+		var prop = get_tile_properties(NEpos)
+		tmap.set_cellv(NEpos,prop[0],prop[1],prop[2],prop[3])
+		var prop = get_tile_properties(NWpos)
+		tmap.set_cellv(NWpos,prop[0],prop[1],prop[2],prop[3])
+	elif dir == Vector2(1,0): # going RIGHT
+		pos = tmap.world_to_map(global_pos - Vector2(cell_size,-cell_size)/2)
+		var poss = prepare_walls_grid(pos);var SEpos = poss[0];var NEpos = poss[3]
+		grid[SEpos] -= grid[SEpos]&N
+		grid[NEpos] -= grid[NEpos]&S
+		var prop = get_tile_properties(SEpos)
+		tmap.set_cellv(SEpos,prop[0],prop[1],prop[2],prop[3])
+		var prop = get_tile_properties(NEpos)
+		tmap.set_cellv(NEpos,prop[0],prop[1],prop[2],prop[3])
+	elif dir == Vector2(-1,0): # going LEFT
+		pos = tmap.world_to_map(global_pos - Vector2(-cell_size*2,-cell_size)/2)
+		var poss = prepare_walls_grid(pos);var SWpos = poss[1];var NWpos = poss[2]
+		grid[SWpos] -= grid[SWpos]&N
+		grid[NWpos] -= grid[NWpos]&S
+		var prop = get_tile_properties(SWpos)
+		tmap.set_cellv(SWpos,prop[0],prop[1],prop[2],prop[3])
+		var prop = get_tile_properties(NWpos)
+		tmap.set_cellv(NWpos,prop[0],prop[1],prop[2],prop[3])
+
+
+func prepare_walls_grid( pos ):
+	var SEpos = pos
+	var SWpos = pos - Vector2(1,0)
+	var NWpos = pos - Vector2(1,1)
+	var NEpos = pos - Vector2(0,1)
+	
+	var arr = [SEpos,SWpos,NWpos,NEpos]
+	for apos in arr:
+		if !grid.has(apos):
+			grid[apos] = N|S|W|E
+	
+	return arr
 
 func add_object(item_data,pos):
 	var tpos = tmap.world_to_map(pos)

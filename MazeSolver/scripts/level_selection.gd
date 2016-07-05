@@ -14,7 +14,7 @@ var swipe_lock = false
 
 
 func _ready():
-	get_node("Current").connect("pressed",self,"_level_selected")
+	get_node("Scaling/Current").connect("pressed",self,"_level_selected")
 	fetch_levels()
 	
 #	yield(get_tree(),"idle_frame")
@@ -25,10 +25,10 @@ func _ready():
 
 func hide():
 	set_process_input(false)
-	dragging = -2
-	swipe_lock = false
 	.hide()
 func show():
+	dragging = -2
+	swipe_lock = false
 	set_process_input(true)
 	update_completed()
 	.show()
@@ -67,12 +67,12 @@ func _input(ev):
 		if dragging == -1 and ev.speed.length() > 300:
 			dragging = ev.index
 		if swipe_lock == false:
-			if abs(ev.speed_x) > 600:
+			if sign(ev.relative_x)==sign(ev.speed_x) && abs(ev.speed_x) > 600:
 #				get_node("Label").set_text(str(ev.speed_x))
 				if sign(ev.speed_x) == 1:
-					set_current(current_index-1)
+					select_prev()
 				else:
-					set_current(current_index+1)
+					select_next()
 				swipe_lock = true
 		pass
 
@@ -85,6 +85,11 @@ func _level_selected():
 	print("  Level name: ",level.name)
 	get_parent().start_level(level.file,idx)
 	set_process_input(false)
+
+func select_next():
+	set_current(current_index+1)
+func select_prev():
+	set_current(current_index-1)
 
 func set_current(idx):
 	if idx < 1 or idx > levels.size():
@@ -105,14 +110,14 @@ func set_current(idx):
 	s += "\n\n"
 	if level_locked:
 		s += "[LOCKED]"
-		get_node("Current").set_disabled(true)
+		get_node("Scaling/Current").set_disabled(true)
 	else:
 		if idx <= completed_levels:
 			s += "[COMPLETED]"
-		get_node("Current").set_disabled(false)
+		get_node("Scaling/Current").set_disabled(false)
 	s += "\n"
 	s += levels[idx-1].name
-	get_node("Current/Label").set_text( s )
+	get_node("Scaling/Current/Label").set_text( s )
 	current_index = idx
 
 func update_completed():
@@ -121,7 +126,7 @@ func update_completed():
 	completed_levels = Config.get_val("levels_completed")
 	var total = levels.size()
 	var s = str(completed_levels," / ",total," Completed")
-	get_node("Completed").set_text(s)
+	get_node("Scaling/Completed").set_text(s)
 	if old_val != completed_levels: # did we unlocked new level since last reload?
 		set_current(completed_levels+1)
 

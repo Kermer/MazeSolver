@@ -11,6 +11,7 @@ var energy_lose_rate = 3
 
 func _ready():
 	get_node("StartTimer").connect("timeout",self,"set_process",[true])
+	get_parent().connect("resized",self,"_resized")
 	pass
 
 func add_energy( amount ):
@@ -22,12 +23,13 @@ func add_energy( amount ):
 
 func update_energy():
 	get_node("CL/Energy").set_value(round(player_energy))
-	var light_scale = lerp(0.4,1.2, player_energy/100)
-	player.get_node("Light").set_scale(Vector2(light_scale,light_scale))
+	var light_scale = lerp(0.5,1.8, player_energy/100)
+	light_scale = Vector2(light_scale,light_scale)
+	player.get_node("Light").set_scale(light_scale)
 
 func _process(delta):
 	if player_energy > 0:
-		add_energy( -delta*energy_lose_rate ) # lose 4 energy / second
+		add_energy( -delta*energy_lose_rate ) # lose X energy / second
 
 func start_endless():
 	level_type = "endless"
@@ -65,10 +67,7 @@ func ready_level():
 
 func ready_player():
 	player.set_pos( level.get_node("StartPos").get_pos() )
-	var level_pos = level.get_pos()
-	var cell_size = level.get_cell_size()
-	var level_size = level.get_size() * cell_size
-	player.set_limits( level_pos.x, level_pos.x+level_size.x, level_pos.y+cell_size*3 )
+	update_camera_limits()
 	player.set_process(true)
 	update_energy()
 
@@ -92,6 +91,24 @@ func _on_lose():
 	dprint("YOU LOSE!")
 	get_node("../Menu").game_over()
 	queue_free()
+
+func _resized(default,current,mult):
+	update_camera_limits()
+
+func update_camera_limits():
+	var level_pos = level.get_pos()
+	var cell_size = level.get_cell_size()
+	var level_size = level.get_size() * cell_size
+	var window_size = OS.get_window_size()
+	if window_size.x > level_size.x:
+		var diff = (window_size.x-level_size.x)
+		level_pos.x -= diff/2
+		level_size.x += diff
+	if window_size.y > level_size.y:
+		var diff = (window_size.y-level_size.y)
+		level_pos.y -= diff/2
+		level_size.y += diff
+	player.set_limits( level_pos.x, level_pos.x+level_size.x, level_pos.y+cell_size*3 )
 
 
 func dprint( s ):
