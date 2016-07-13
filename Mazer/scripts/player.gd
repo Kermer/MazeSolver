@@ -1,35 +1,31 @@
 
 extends KinematicBody2D
 
-const speed = 150
-var sprite_size = Vector2()
-var limit = {}
+const speed = 150 # max speed
+onready var sprite_size = get_node("Sprite").get_texture().get_size() * get_node("Sprite").get_scale() # used for view limit calculations
+var limit = {} # camera limits
+var movement = Vector2() # should have values between -1 and 1
 
 func _ready():
-	sprite_size = get_node("Sprite").get_texture().get_size() * get_node("Sprite").get_scale()
-#	set_darkness(false)
-	get_tree().connect("screen_resized",self,"_screen_resized")
 	add_to_group("Players")
 
 func set_process(val): # override
 	set_fixed_process(val)
 
+func set_movement(val): # called from 
+	movement = val
+
 func _fixed_process(delta):
-	var dir = Vector2(0,0)
-	var actions = { "ui_left":Vector2(-1,0), "ui_right":Vector2(1,0), "ui_up":Vector2(0,-1), "ui_down":Vector2(0,1) }
-	for ac in actions:
-		if Input.is_action_pressed(ac):
-			dir += actions[ac]
-	
-	var motion = dir.normalized() * speed * delta
-	motion = clamp_to_limits(motion)
+	var motion = movement * speed * delta
+	motion = clamp_to_limits(motion) 
 	move(motion)
 	
-	if is_colliding():
+	if is_colliding(): # slideee
 		var n = get_collision_normal()
 		motion = n.slide(motion)
 		move(motion)
 
+# Stop the motion in specific axis if player would get out of screen
 func clamp_to_limits(motion):
 	if limit.size() < 3:
 		return motion
@@ -45,6 +41,7 @@ func clamp_to_limits(motion):
 		motion.y = 0
 	return motion
 
+# This might get some changes soon
 func set_limits(left,right,bottom,top=null):
 	var camera = get_node("Camera")
 	limit["left"] = left
@@ -60,6 +57,7 @@ func set_limits(left,right,bottom,top=null):
 		limit["top"] = top
 		camera.set_limit(MARGIN_TOP,top)
 
+# Update single limit
 func update_limit(name,val):
 	if !(name in ["left","right","bottom","top"]):
 		return
@@ -74,29 +72,3 @@ func update_limit(name,val):
 	elif name == "top":
 		camera.set_limit(MARGIN_TOP,val)
 
-
-
-#func set_darkness(val,size=null):
-#	if typeof(size) == TYPE_VECTOR2:
-#		var scale = size / get_node("Darkness").get_texture().get_size()
-#		get_node("Darkness").set_scale(scale)
-#	if val == true:
-#		get_node("Darkness").show()
-#		get_node("Light").set_enabled(true)
-#	else:
-#		get_node("Darkness").hide()
-#		get_node("Light").set_enabled(false)
-
-#func _toggle_darkness():
-#	if get_node("Darkness").is_hidden():
-#		get_node("Darkness").show()
-#		get_node("Light").set_enabled(true)
-#	else:
-#		get_node("Darkness").hide()
-#		get_node("Light").set_enabled(false)
-
-func _screen_resized():
-	pass
-#	var window_size = OS.get_window_size()
-#	var scale = window_size / get_node("Darkness").get_texture().get_size()
-#	get_node("Darkness").set_scale(scale)

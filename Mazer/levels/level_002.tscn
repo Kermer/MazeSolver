@@ -1,28 +1,21 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://scripts/default_maze.gd" type="Script" id=1]
-[ext_resource path="res://resources/maze_tileset.tres" type="TileSet" id=2]
-[ext_resource path="res://scenes/collectible.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scripts/collectible.gd" type="Script" id=4]
-[ext_resource path="res://scenes/end_pos.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scripts/end_pos.gd" type="Script" id=6]
+[ext_resource path="res://resources/maze_tileset-walls.tres" type="TileSet" id=2]
+[ext_resource path="res://scenes/end_pos.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/end_pos.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
 custom_solver_bias = 0.0
-extents = Vector2( 16, 16 )
-
-[sub_resource type="RectangleShape2D" id=2]
-
-custom_solver_bias = 0.0
 extents = Vector2( 32, 32 )
 
-[node name="TestLevel_002" type="Navigation2D"]
+[node name="Quite Invalid, huh?" type="Navigation2D"]
 
 script/script = ExtResource( 1 )
-__meta__ = { "level_grid":{ Vector2( 0, -14 ):6, Vector2( 0, -13 ):3, Vector2( 0, -12 ):3, Vector2( 0, -11 ):3, Vector2( 0, -10 ):3, Vector2( 0, -9 ):3, Vector2( 0, -8 ):3, Vector2( 0, -7 ):3, Vector2( 0, -6 ):3, Vector2( 0, -5 ):3, Vector2( 0, -4 ):5, Vector2( 1, -14 ):12, Vector2( 1, -11 ):2, Vector2( 1, -10 ):3, Vector2( 1, -9 ):5, Vector2( 1, -6 ):6, Vector2( 1, -5 ):3, Vector2( 1, -4 ):9, Vector2( 2, -14 ):12, Vector2( 2, -9 ):10, Vector2( 2, -8 ):5, Vector2( 2, -6 ):12, Vector2( 3, -16 ):6, Vector2( 3, -15 ):3, Vector2( 3, -14 ):15, Vector2( 3, -13 ):3, Vector2( 3, -12 ):5, Vector2( 3, -11 ):4, Vector2( 3, -8 ):10, Vector2( 3, -7 ):3, Vector2( 3, -6 ):13, Vector2( 3, -3 ):6, Vector2( 3, -2 ):1, Vector2( 4, -16 ):12, Vector2( 4, -14 ):12, Vector2( 4, -12 ):12, Vector2( 4, -11 ):10, Vector2( 4, -10 ):3, Vector2( 4, -9 ):5, Vector2( 4, -6 ):12, Vector2( 4, -3 ):12, Vector2( 5, -16 ):12, Vector2( 5, -14 ):12, Vector2( 5, -12 ):12, Vector2( 5, -9 ):14, Vector2( 5, -8 ):3, Vector2( 5, -7 ):3, Vector2( 5, -6 ):13, Vector2( 5, -4 ):6, Vector2( 5, -3 ):9, Vector2( 6, -16 ):8, Vector2( 6, -14 ):10, Vector2( 6, -13 ):7, Vector2( 6, -12 ):11, Vector2( 6, -11 ):5, Vector2( 6, -9 ):12, Vector2( 6, -6 ):10, Vector2( 6, -5 ):3, Vector2( 6, -4 ):13, Vector2( 7, -13 ):12, Vector2( 7, -11 ):12, Vector2( 7, -10 ):2, Vector2( 7, -9 ):9, Vector2( 7, -8 ):4, Vector2( 7, -4 ):12, Vector2( 8, -17 ):6, Vector2( 8, -16 ):5, Vector2( 8, -13 ):8, Vector2( 8, -11 ):12, Vector2( 8, -8 ):10, Vector2( 8, -7 ):7, Vector2( 8, -6 ):5, Vector2( 8, -4 ):12, Vector2( 9, -17 ):14, Vector2( 9, -16 ):15, Vector2( 9, -15 ):3, Vector2( 9, -14 ):3, Vector2( 9, -13 ):3, Vector2( 9, -12 ):3, Vector2( 9, -11 ):9, Vector2( 9, -7 ):12, Vector2( 9, -6 ):10, Vector2( 9, -5 ):3, Vector2( 9, -4 ):9, Vector2( 10, -17 ):10, Vector2( 10, -16 ):9, Vector2( 10, -8 ):2, Vector2( 10, -7 ):9 }, "level_height":19.0, "level_name":"TestLevel_002", "level_width":11.0 }
+__meta__ = { "level_height":13.0, "level_name":"Quite Invalid, huh\?", "level_width":11.0, "walls_grid":{ Vector2( 0, -9 ):6, Vector2( 0, -8 ):3, Vector2( 0, -7 ):3, Vector2( 0, -6 ):5, Vector2( 1, -10 ):2, Vector2( 1, -9 ):9, Vector2( 1, -8 ):6, Vector2( 1, -7 ):5, Vector2( 1, -6 ):12, Vector2( 2, -10 ):2, Vector2( 2, -9 ):5, Vector2( 2, -8 ):12, Vector2( 2, -7 ):12, Vector2( 2, -6 ):10, Vector2( 2, -5 ):5, Vector2( 3, -9 ):12, Vector2( 3, -8 ):12, Vector2( 3, -7 ):10, Vector2( 3, -6 ):5, Vector2( 3, -5 ):10, Vector2( 3, -4 ):3, Vector2( 3, -3 ):3, Vector2( 3, -2 ):3, Vector2( 3, -1 ):1, Vector2( 4, -9 ):12, Vector2( 4, -8 ):12, Vector2( 4, -6 ):10, Vector2( 4, -5 ):3, Vector2( 4, -4 ):3, Vector2( 4, -3 ):3, Vector2( 4, -2 ):3, Vector2( 4, -1 ):1, Vector2( 5, -9 ):12, Vector2( 5, -8 ):12, Vector2( 6, -11 ):2, Vector2( 6, -10 ):3, Vector2( 6, -9 ):13, Vector2( 6, -8 ):12, Vector2( 7, -11 ):2, Vector2( 7, -10 ):1, Vector2( 7, -9 ):14, Vector2( 7, -8 ):9, Vector2( 8, -11 ):2, Vector2( 8, -10 ):3, Vector2( 8, -9 ):9 } }
 WIDTH = 11.0
-HEIGHT = 19.0
+HEIGHT = 13.0
 
 [node name="TileMap" type="TileMap" parent="."]
 
@@ -40,116 +33,31 @@ collision/bounce = 0.0
 collision/layers = 1
 collision/mask = 1
 occluder/light_mask = 1
-tile_data = IntArray( -1114104, 1610612738, -1114103, 1610612737, -1114102, -1073741822, -1048573, 1610612738, -1048572, 3, -1048571, 3, -1048570, -1073741820, -1048568, -1610612734, -1048567, 0, -1048566, 2, -983037, -1610612733, -983031, -1610612733, -917504, 1610612738, -917503, 3, -917502, 3, -917501, 0, -917500, 3, -917499, 3, -917498, -1073741822, -917495, -1610612733, -851968, -1610612733, -851965, -1610612733, -851962, -1610612735, -851961, 3, -851960, -1073741820, -851959, -1610612733, -786432, -1610612733, -786429, -1610612734, -786428, 3, -786427, 3, -786426, -1073741823, -786423, -1610612733, -720896, -1610612733, -720895, 1610612740, -720893, -1610612732, -720892, -1073741822, -720890, -1610612734, -720889, 3, -720888, 3, -720887, 2, -655360, -1610612733, -655359, -1610612733, -655356, -1610612733, -655353, 1610612740, -589824, -1610612733, -589823, -1610612734, -589822, -1073741822, -589820, -1610612734, -589819, 1610612737, -589818, 3, -589817, 2, -524288, -1610612733, -524286, -1610612734, -524285, -1073741822, -524283, -1610612733, -524281, -1610612732, -524280, -1073741822, -524278, 1610612740, -458752, -1610612733, -458749, -1610612733, -458747, -1610612733, -458744, -1610612735, -458743, 3, -458742, 2, -393216, -1610612733, -393215, 1610612738, -393214, 3, -393213, 1, -393212, 3, -393211, 1, -393210, -1073741822, -393208, -1610612734, -393207, -1073741822, -327680, -1610612733, -327679, -1610612733, -327674, -1610612733, -327671, -1610612733, -262144, -1610612734, -262143, 2, -262139, 1610612738, -262138, 1, -262137, 3, -262136, 3, -262135, 2, -196605, 1610612738, -196604, 3, -196603, 2, -131069, 4 )
+tile_data = IntArray( -720890, 2, -720889, 2, -720888, 2, -655359, 2, -655358, 2, -655354, -1610612732, -655353, 1610612738, -655352, -1610612732, -589824, 1610612739, -589823, 3, -589822, -1610612733, -589821, 4, -589820, 4, -589819, 4, -589818, 1610612741, -589817, 5, -589816, 3, -524288, -1610612732, -524287, 1610612739, -524286, 4, -524285, 4, -524284, 4, -524283, 4, -524282, 4, -524281, 3, -458752, -1610612732, -458751, -1610612733, -458750, 4, -458749, -1073741821, -393216, -1610612733, -393215, 4, -393214, -1073741821, -393213, -1610612733, -393212, -1073741821, -327678, -1610612733, -327677, -1073741821, -327676, -1610612732, -262141, -1610612732, -262140, -1610612732, -196605, -1610612732, -196604, -1610612732, -131069, -1610612732, -131068, -1610612732, -65533, 1610612738, -65532, 1610612738 )
 
 [node name="Objects" type="Node2D" parent="."]
 
 [node name="Collectibles" type="Node2D" parent="Objects"]
 
-[node name="Collectible" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 608, -416 )
-z/z = 30
-z/relative = false
-input/pickable = true
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-monitorable = false
-script/script = ExtResource( 4 )
-type = "IncEnergy"
-
-[node name="Collectible154" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 352, -544 )
-z/z = 30
-z/relative = false
-input/pickable = true
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-monitorable = false
-script/script = ExtResource( 4 )
-type = "IncEnergy"
-
-[node name="Collectible155" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 32, -224 )
-z/z = 30
-z/relative = false
-input/pickable = true
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-monitorable = false
-script/script = ExtResource( 4 )
-type = "IncEnergy"
-
-[node name="Collectible156" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 352, -992 )
-z/z = 30
-z/relative = false
-input/pickable = true
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-monitorable = false
-script/script = ExtResource( 4 )
-type = "IncEnergy"
-
-[node name="Collectible157" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
-
-transform/pos = Vector2( 160, -480 )
-z/z = 30
-z/relative = false
-input/pickable = true
-shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
-shapes/0/trigger = false
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-monitorable = false
-script/script = ExtResource( 4 )
-type = "IncEnergy"
-
 [node name="StartPos" type="Position2D" parent="."]
 
-transform/pos = Vector2( 224, -96 )
+transform/pos = Vector2( 256, -64 )
 
 [node name="EndPos" type="Node2D" parent="."]
 
-[node name="EndPos" type="Area2D" parent="EndPos" instance=ExtResource( 5 )]
+[node name="EndPos" type="Area2D" parent="EndPos" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 608, -992 )
+transform/pos = Vector2( 512, -576 )
 z/z = 35
 z/relative = false
 input/pickable = true
-shapes/0/shape = SubResource( 2 )
+shapes/0/shape = SubResource( 1 )
 shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
 shapes/0/trigger = false
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
 linear_damp = 0.1
 angular_damp = 1.0
-script/script = ExtResource( 6 )
+script/script = ExtResource( 4 )
 
 

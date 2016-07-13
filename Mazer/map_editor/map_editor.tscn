@@ -3,7 +3,7 @@
 [ext_resource path="res://themes/menu_theme.tres" type="Theme" id=1]
 [ext_resource path="res://map_editor/map_editor.gd" type="Script" id=2]
 [ext_resource path="res://map_editor/editor_window.gd" type="Script" id=3]
-[ext_resource path="res://resources/maze_tileset.tres" type="TileSet" id=4]
+[ext_resource path="res://resources/maze_tileset-walls.tres" type="TileSet" id=4]
 [ext_resource path="res://map_editor/previews/start_pos.png" type="Texture" id=5]
 [ext_resource path="res://gfx/_white_32.png" type="Texture" id=6]
 

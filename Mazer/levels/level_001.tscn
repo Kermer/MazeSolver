@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://scripts/default_maze.gd" type="Script" id=1]
-[ext_resource path="res://resources/maze_tileset.tres" type="TileSet" id=2]
+[ext_resource path="res://resources/maze_tileset-walls.tres" type="TileSet" id=2]
 [ext_resource path="res://scenes/collectible.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/collectible.gd" type="Script" id=4]
 [ext_resource path="res://scenes/end_pos.tscn" type="PackedScene" id=5]
@@ -17,12 +17,12 @@ extents = Vector2( 16, 16 )
 custom_solver_bias = 0.0
 extents = Vector2( 32, 32 )
 
-[node name="NoName" type="Navigation2D"]
+[node name="SomeLevel" type="Navigation2D"]
 
 script/script = ExtResource( 1 )
-__meta__ = { "level_grid":{ Vector2( 2, -3 ):6, Vector2( 2, -2 ):5, Vector2( 3, -9 ):2, Vector2( 3, -8 ):3, Vector2( 3, -7 ):5, Vector2( 3, -6 ):6, Vector2( 3, -5 ):5, Vector2( 3, -4 ):6, Vector2( 3, -3 ):11, Vector2( 3, -2 ):9, Vector2( 4, -7 ):10, Vector2( 4, -6 ):9, Vector2( 4, -5 ):12, Vector2( 4, -4 ):12, Vector2( 5, -5 ):10, Vector2( 5, -4 ):9 }, "level_height":11.0, "level_name":"NoName", "level_width":6.0 }
-WIDTH = 6.0
-HEIGHT = 11.0
+__meta__ = { "level_height":12.0, "level_name":"SomeLevel", "level_width":12.0, "walls_grid":{ Vector2( 1, -8 ):6, Vector2( 1, -7 ):3, Vector2( 1, -6 ):3, Vector2( 1, -5 ):3, Vector2( 1, -4 ):3, Vector2( 1, -3 ):3, Vector2( 1, -2 ):5, Vector2( 2, -8 ):12, Vector2( 2, -7 ):6, Vector2( 2, -6 ):5, Vector2( 2, -5 ):6, Vector2( 2, -4 ):3, Vector2( 2, -3 ):3, Vector2( 2, -2 ):9, Vector2( 3, -10 ):6, Vector2( 3, -9 ):3, Vector2( 3, -8 ):11, Vector2( 3, -7 ):13, Vector2( 3, -6 ):12, Vector2( 3, -5 ):10, Vector2( 3, -4 ):3, Vector2( 3, -3 ):5, Vector2( 4, -11 ):6, Vector2( 4, -10 ):9, Vector2( 4, -9 ):6, Vector2( 4, -8 ):5, Vector2( 4, -7 ):12, Vector2( 4, -6 ):12, Vector2( 4, -5 ):2, Vector2( 4, -4 ):5, Vector2( 4, -3 ):12, Vector2( 5, -11 ):10, Vector2( 5, -10 ):5, Vector2( 5, -9 ):12, Vector2( 5, -8 ):12, Vector2( 5, -7 ):12, Vector2( 5, -6 ):8, Vector2( 5, -5 ):6, Vector2( 5, -4 ):11, Vector2( 5, -3 ):13, Vector2( 6, -10 ):12, Vector2( 6, -9 ):8, Vector2( 6, -8 ):12, Vector2( 6, -7 ):12, Vector2( 6, -6 ):6, Vector2( 6, -5 ):9, Vector2( 6, -4 ):6, Vector2( 6, -3 ):9, Vector2( 7, -10 ):10, Vector2( 7, -9 ):7, Vector2( 7, -8 ):9, Vector2( 7, -7 ):12, Vector2( 7, -6 ):8, Vector2( 7, -5 ):2, Vector2( 7, -4 ):11, Vector2( 7, -3 ):5, Vector2( 8, -9 ):12, Vector2( 8, -8 ):6, Vector2( 8, -7 ):9, Vector2( 8, -6 ):6, Vector2( 8, -5 ):3, Vector2( 8, -4 ):5, Vector2( 8, -3 ):12, Vector2( 9, -9 ):12, Vector2( 9, -8 ):12, Vector2( 9, -7 ):2, Vector2( 9, -6 ):9, Vector2( 9, -5 ):6, Vector2( 9, -4 ):9, Vector2( 9, -3 ):12, Vector2( 10, -9 ):12, Vector2( 10, -8 ):10, Vector2( 10, -7 ):3, Vector2( 10, -6 ):3, Vector2( 10, -5 ):9, Vector2( 10, -4 ):6, Vector2( 10, -3 ):9, Vector2( 11, -9 ):10, Vector2( 11, -8 ):3, Vector2( 11, -7 ):3, Vector2( 11, -6 ):3, Vector2( 11, -5 ):3, Vector2( 11, -4 ):9 } }
+WIDTH = 12.0
+HEIGHT = 12.0
 
 [node name="TileMap" type="TileMap" parent="."]
 
@@ -40,7 +40,7 @@ collision/bounce = 0.0
 collision/layers = 1
 collision/mask = 1
 occluder/light_mask = 1
-tile_data = IntArray( -589821, 1610612740, -524285, -1610612733, -458749, -1610612734, -458748, -1073741822, -393213, 1610612738, -393212, 2, -327677, -1610612734, -327676, 3, -327675, -1073741822, -262141, 1610612738, -262140, 3, -262139, 2, -196606, 1610612738, -196605, -1073741823, -131070, -1610612734, -131069, 2 )
+tile_data = IntArray( -720892, 1610612739, -720891, -1073741821, -655357, 1610612739, -655356, 3, -655355, -1610612733, -655354, 4, -655353, -1073741821, -589821, -1610612732, -589820, 1610612739, -589819, 4, -589818, -1610612734, -589817, -1073741819, -589816, 4, -589815, 4, -589814, 4, -589813, -1073741821, -524287, 1610612739, -524286, 4, -524285, -1610612731, -524284, -1610612733, -524283, 4, -524282, 4, -524281, 3, -524280, 1610612739, -524279, 4, -524278, -1073741821, -524277, -1610612732, -458751, -1610612732, -458750, 1610612739, -458749, 1610612741, -458748, 4, -458747, 4, -458746, 4, -458745, 4, -458744, 3, -458743, 2, -458742, -1610612732, -458741, -1610612732, -393215, -1610612732, -393214, -1610612733, -393213, 4, -393212, 4, -393211, -1610612734, -393210, 1610612739, -393209, -1610612734, -393208, 1610612739, -393207, 3, -393206, -1610612732, -393205, -1610612732, -327679, -1610612732, -327678, 1610612739, -327677, -1073741821, -327676, 2, -327675, 1610612739, -327674, 3, -327673, 2, -327672, -1610612732, -327671, 1610612739, -327670, 3, -327669, -1610612732, -262143, -1610612732, -262142, -1610612732, -262141, -1610612732, -262140, -1610612733, -262139, -1610612731, -262138, 1610612739, -262137, -1610612731, -262136, -1610612733, -262135, 3, -262134, 1610612739, -262133, 3, -196607, -1610612732, -196606, -1610612732, -196605, -1610612733, -196604, 4, -196603, 1610612741, -196602, 3, -196601, -1610612733, -196600, 4, -196599, 4, -196598, 3, -131071, -1610612733, -131070, 3 )
 
 [node name="Objects" type="Node2D" parent="."]
 
@@ -48,7 +48,7 @@ tile_data = IntArray( -589821, 1610612740, -524285, -1610612733, -458749, -16106
 
 [node name="Collectible" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 352, -288 )
+transform/pos = Vector2( 256, -384 )
 z/z = 30
 z/relative = false
 input/pickable = true
@@ -65,7 +65,7 @@ type = "IncEnergy"
 
 [node name="Collectible153" type="Area2D" parent="Objects/Collectibles" instance=ExtResource( 3 )]
 
-transform/pos = Vector2( 224, -352 )
+transform/pos = Vector2( 640, -256 )
 z/z = 30
 z/relative = false
 input/pickable = true
@@ -82,13 +82,28 @@ type = "IncEnergy"
 
 [node name="StartPos" type="Position2D" parent="."]
 
-transform/pos = Vector2( 160, -96 )
+transform/pos = Vector2( 128, -128 )
 
 [node name="EndPos" type="Node2D" parent="."]
 
 [node name="EndPos" type="Area2D" parent="EndPos" instance=ExtResource( 5 )]
 
-transform/pos = Vector2( 224, -544 )
+transform/pos = Vector2( 320, -512 )
+z/z = 35
+z/relative = false
+input/pickable = true
+shapes/0/shape = SubResource( 2 )
+shapes/0/transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+shapes/0/trigger = false
+gravity_vec = Vector2( 0, 1 )
+gravity = 98.0
+linear_damp = 0.1
+angular_damp = 1.0
+script/script = ExtResource( 6 )
+
+[node name="EndPos154" type="Area2D" parent="EndPos" instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 320, -640 )
 z/z = 35
 z/relative = false
 input/pickable = true

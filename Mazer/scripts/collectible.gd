@@ -10,7 +10,7 @@ func _ready():
 	add_to_group("Collectibles")
 
 func _on_body_enter(body):
-	if body.get_name() == "Player":
+	if body.is_in_group("Players"):
 		emit_signal("player_enter",type,body)
 		queue_free()
 

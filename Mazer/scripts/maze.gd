@@ -401,6 +401,63 @@ func get_tile_properties(dir):
 	
 	return prop
 
+#func get_wall_tile_properties(pos):
+#	var connect_mask = walls_grid[pos] # direction mask for cells connected to checked one (ones you can walk to)
+#	var walls_count = 0
+#	for mask in [N,S,W,E]: # 1, 2, 8, 4
+#		if connect_mask&mask:
+#			walls_count += 1
+#	var prop = [-1,false,false,false]
+#	var rot = 0
+#	if walls_count == 0:
+#		prop[0] = 1
+#	elif walls_count == 1:
+#		prop[0] = 2
+#		if connect_mask&W: # wall on the left
+#			rot = 90
+#		elif connect_mask&N:
+#			rot = 180
+#		elif connect_mask&E:
+#			rot = 270
+#	elif walls_count == 2:
+#		if (connect_mask&N and connect_mask&S) or (connect_mask&W and connect_mask&E):
+#			prop[0] = 4 # tunnel
+#			if connect_mask&N: # vertical
+#				rot = 90
+#		else:
+#			prop[0] = 3 # corner
+#			if connect_mask&E:
+#				if connect_mask&N:
+#					rot = 90
+#				else:
+#					rot = 180
+#			elif connect_mask&S and connect_mask&W:
+#				rot = 270
+#	elif walls_count == 3:
+#		prop[0]=5
+#		if !connect_mask&E:
+#			rot = 90
+#		elif !connect_mask&S:
+#			rot = 180
+#		elif !connect_mask&W:
+#			rot = 270
+#	elif walls_count == 4:
+#		prop[0] = 6
+#	
+#	return rotate_properties(prop,rot)
+#
+#
+#func rotate_properties(prop,rot):
+#	if rot == 0:
+#		return prop
+#	if rot == 90:
+#		prop = [prop[0],true,false,true]
+#	elif rot == 180:
+#		prop = [prop[0],true,true,false]
+#	elif rot == 270:
+#		prop = [prop[0],false,true,true]
+#	return prop
+
 func get_tilemap_size(tmap):
 	var csize = tmap.get_cell_size()
 	var quadrant = tmap.get_quadrant_size()

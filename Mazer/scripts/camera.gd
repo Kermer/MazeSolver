@@ -1,5 +1,7 @@
 extends Camera2D
 
+# This is just temporary, for debug purposes, allows you to zoom in/out on PCs
+
 func _ready():
 	set_process_input(true)
 

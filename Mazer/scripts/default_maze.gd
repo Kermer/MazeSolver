@@ -11,5 +11,7 @@ func get_tilemap_scale():
 	return get_node("TileMap").get_scale()
 func get_tileset():
 	return get_node("TileMap").get_tileset()
-func get_level_name():
-	return get_meta("level_name") || get_name()
+func get_name(node_name=false): # metadata has higher priority than get_name()
+	if !node_name and has_meta("level_name"):
+		return get_meta("level_name")
+	return get_name()

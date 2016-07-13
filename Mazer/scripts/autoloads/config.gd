@@ -1,5 +1,8 @@
-extends Node
 
+# This piece of code might be hard to understand and it was made with simple thought in mind:
+#	You just insert new entries to 'DEFAULT' and 'mapp' and that's it. Now you can get and set it using just the name from 'mapp'
+
+extends Node
 
 var cfg = ConfigFile.new()
 const path = "user://config.cfg"
@@ -12,8 +15,6 @@ var mapp = {"me_path":["MapEditor","me_last_path"],
 			"levels_completed":["Game","levels_completed"],
 			"all_levels_unlocked":["Game","all_levels_unlocked"],
 		}
-# const VIDEO = ["resolution","fullscreen"]
-# const MENU = ["connect_ip"]
 
 func _init():
 	cfg.load(path)
