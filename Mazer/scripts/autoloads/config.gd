@@ -10,10 +10,14 @@ const path = "user://config.cfg"
 var DEFAULT = {"me_last_path":"",
 			"levels_completed":0,
 			"all_levels_unlocked":false,
+			"sound":true,"sound_volume":0.8,
+			"music":true,"music_volume":0.8
 		}
 var mapp = {"me_path":["MapEditor","me_last_path"],
 			"levels_completed":["Game","levels_completed"],
 			"all_levels_unlocked":["Game","all_levels_unlocked"],
+			"sound":["Game","sound"],"sound_volume":["Game","sound_volume"],
+			"music":["Game","music"],"music_volume":["Game","music_volume"]
 		}
 
 func _init():

@@ -77,6 +77,8 @@ var HEIGHT = 4
 onready var tmap = get_node("Level/TileMap")
 var objects = {}
 
+var dragging_screen = false
+
 
 
 
@@ -315,6 +317,9 @@ func recursive_set_owner(owner,node):
 # ========================================
 func _unhandled_input(event):
 	if event.type == InputEvent.MOUSE_MOTION:
+		if dragging_screen:
+			var camera = get_node("Camera")
+			camera.set_offset(camera.get_offset() - event.relative_pos*camera.get_zoom())
 		var mpos = get_node("Level").get_local_mouse_pos()
 		if obj_preview.is_visible():
 			if mpos.x > 0 and mpos.y < 0:
@@ -341,7 +346,9 @@ func _unhandled_input(event):
 					preview_pos = tmap.map_to_world(tmap.world_to_map(mpos + Vector2(cell_size,cell_size)/2))
 				obj_preview.set_pos( preview_pos )
 	elif event.type == InputEvent.MOUSE_BUTTON:
-		if event.button_index == 2:
+		if event.button_index == BUTTON_MIDDLE:
+			dragging_screen = !dragging_screen
+		elif event.button_index == 2:
 			if event.is_pressed():
 				remove_item()
 				mouse_drag = 2
@@ -695,8 +702,9 @@ func _process(delta):
 		if Input.is_action_pressed(ac):
 			dir += actions[ac]
 	dir = dir.normalized()
-	var level = get_node("Level")
-	level.set_pos( level.get_pos() + dir*move_speed*delta )
+	var camera = get_node("Camera")
+	camera.set_offset( camera.get_offset() - dir*move_speed*delta*camera.get_zoom() )
+#	level.set_pos( level.get_pos() + dir*move_speed*delta )
 
 func _item_selected( item_data ):
 	var tex = null

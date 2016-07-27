@@ -18,6 +18,8 @@ func _ready():
 			child.connect("pressed",self,"_on_Start_"+child.get_name())
 	
 	get_node("LevelSelection/BHome").connect("pressed",self,"_go_back")
+	get_node("Settings/BHome").connect("pressed",self,"_go_back")
+	get_node("Credits/BHome").connect("pressed",self,"_go_back")
 	
 	# Show 'Main' menu when menu is loaded
 	for c in get_children():
@@ -30,6 +32,18 @@ func _on_BStart_pressed():
 	get_node("Main").hide()
 	get_node("Start").show()
 	sub_menu = [1,"Start"]
+
+# 'Main' menu: settings pressed -> Goto 'Settings' menu
+func _on_BSettings_pressed():
+	get_node("Main").hide()
+	get_node("Settings").show()
+	sub_menu = [1,"Settings"]
+
+# 'Main' menu: credits pressed -> Goto 'Credits' menu
+func _on_BCredits_pressed():
+	get_node("Main").hide()
+	get_node("Credits").show()
+	sub_menu = [1,"Credits"]
 
 # 'Start' menu: endless mode selected -> load game.tscn and start endless mode
 func _on_Start_BEndless():
@@ -109,26 +123,32 @@ func _resized(default,current,mult):
 	scale = min_scale
 	
 	# Resize 'Main' menu
-	var logo = get_node("Main/Logo")
-	logo.set_scale(scale*0.7) # (default: 0.7) 'scale=min_scale' - keep the ratio of logo
-	var logo_size = logo.get_texture().get_size() * logo.get_scale()
-	logo.set_pos( Vector2(current.x/2, logo_size.y/2 + (160*mult)) ) # (default(Y): 160px from top) - center the logo on X and move it down a bit from the top edge
-	# 	Scale and move 'Main' menu buttons
-	var bpos = Vector2(default.x/2,480) * default_scale
-	var bseparator = 64 * default_scale.y
-	for button in get_node("Main").get_children():
-		if button extends BaseButton:
-			button.set_texture_scale(scale*0.8)
-			button.set_size(Vector2(1,1)) # to update the real size
-			var bsize = button.get_size().floor()
-			button.set_pos( bpos-Vector2(bsize.x/2,0) )
-			bpos += Vector2(0,bsize.y+bseparator)
+	get_node("Main").set_scale(min_scale)
+	var size = get_node("Main").get_size()
+	get_node("Main").set_pos(Vector2((current.x-size.x*mult)/2,0))
 	
 	# Resize 'Start' menu
 	var bhome = get_node("Start/BHome")
 	bhome.set_texture_scale(0.5*min_scale)
 	bhome.set_size(Vector2(1,1))
 	bhome.set_global_pos( Vector2(32,current.y-bhome.get_size().y-32) )
+	
+	# Resize 'Settings' menu
+	get_node("Settings").set_scale(min_scale)
+	var size = get_node("Settings").get_size()
+	get_node("Settings").set_pos(Vector2((current.x-size.x*mult)/2,0))
+	var bhome = get_node("Settings/BHome")
+	bhome.set_size(Vector2(1,1))
+	bhome.set_global_pos( Vector2(32,current.y-bhome.get_size().y*mult-32) )
+	
+	# Resize 'Credits' menu
+	get_node("Credits").set_scale(min_scale)
+	var size = get_node("Credits").get_size()
+	get_node("Credits").set_pos(Vector2((current.x-size.x*mult)/2,0))
+	var bhome = get_node("Credits/BHome")
+	bhome.set_size(Vector2(1,1))
+	bhome.set_global_pos( Vector2(32,current.y-bhome.get_size().y*mult-32) )
+	
 	
 	# Resize 'LevelSelection' menu
 	get_node("LevelSelection").set_scale(min_scale)

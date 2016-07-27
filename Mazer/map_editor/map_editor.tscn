@@ -32,6 +32,10 @@ focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 theme/theme = ExtResource( 1 )
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 0.0
+margin/bottom = 0.0
 script/script = ExtResource( 2 )
 
 [node name="CL" type="CanvasLayer" parent="."]
@@ -43,21 +47,21 @@ scale = Vector2( 1, 1 )
 
 [node name="StartMenu" type="Panel" parent="CL"]
 
+editor/display_folded = true
 visibility/visible = false
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-margin/left = 256.0
-margin/top = 480.0
-margin/right = -256.0
-margin/bottom = -480.0
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 theme/theme = ExtResource( 1 )
-__meta__ = { "_editor_collapsed":true }
+margin/left = 256.0
+margin/top = 480.0
+margin/right = -256.0
+margin/bottom = -480.0
 
 [node name="BNew" type="Button" parent="CL/StartMenu"]
 
@@ -65,15 +69,17 @@ anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-margin/left = 160.0
-margin/top = 352.0
-margin/right = -164.0
-margin/bottom = 256.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 160.0
+margin/top = 352.0
+margin/right = -164.0
+margin/bottom = 256.0
 toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
 text = "New Level"
 flat = false
 
@@ -83,15 +89,17 @@ anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-margin/left = 160.0
-margin/top = 160.0
-margin/right = -164.0
-margin/bottom = 64.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 160.0
+margin/top = 160.0
+margin/right = -164.0
+margin/bottom = 64.0
 toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
 text = "Load Level"
 flat = false
 
@@ -102,36 +110,38 @@ anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-margin/left = 160.0
-margin/top = -32.0
-margin/right = -164.0
-margin/bottom = -128.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 160.0
+margin/top = -32.0
+margin/right = -164.0
+margin/bottom = -128.0
 disabled = true
 toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
 text = "Go Back"
 flat = false
 
 [node name="EscMenu" type="Panel" parent="CL"]
 
+editor/display_folded = true
 visibility/visible = false
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-margin/left = 256.0
-margin/top = 480.0
-margin/right = -256.0
-margin/bottom = -480.0
 focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
 theme/theme = ExtResource( 1 )
-__meta__ = { "_editor_collapsed":true }
+margin/left = 256.0
+margin/top = 480.0
+margin/right = -256.0
+margin/bottom = -480.0
 
 [node name="BSave" type="Button" parent="CL/EscMenu"]
 
@@ -139,15 +149,17 @@ anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-margin/left = 160.0
-margin/top = 256.0
-margin/right = -164.0
-margin/bottom = 160.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 160.0
+margin/top = 256.0
+margin/right = -164.0
+margin/bottom = 160.0
 toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
 text = "Save Level"
 flat = false
 
@@ -157,15 +169,17 @@ anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-margin/left = 160.0
-margin/top = 128.0
-margin/right = -164.0
-margin/bottom = 32.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 160.0
+margin/top = 128.0
+margin/right = -164.0
+margin/bottom = 32.0
 toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
 text = "Continue"
 flat = false
 
@@ -175,14 +189,17 @@ anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-margin/left = 160.0
-margin/right = -164.0
-margin/bottom = -96.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 160.0
+margin/top = 0.0
+margin/right = -164.0
+margin/bottom = -96.0
 toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
 text = "Load a Level"
 flat = false
 
@@ -192,15 +209,17 @@ anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-margin/left = 160.0
-margin/top = -128.0
-margin/right = -164.0
-margin/bottom = -224.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 160.0
+margin/top = -128.0
+margin/right = -164.0
+margin/bottom = -224.0
 toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
 text = "New Level"
 flat = false
 
@@ -210,16 +229,18 @@ anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-margin/left = 160.0
-margin/top = -256.0
-margin/right = -164.0
-margin/bottom = -352.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 160.0
+margin/top = -256.0
+margin/right = -164.0
+margin/bottom = -352.0
 disabled = true
 toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
 text = "Quit"
 flat = false
 
@@ -229,27 +250,30 @@ anchor/left = 3
 anchor/top = 3
 anchor/right = 3
 anchor/bottom = 3
-margin/left = 192.0
-margin/top = 320.0
-margin/right = -192.0
-margin/bottom = 284.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-text = ""
+margin/left = 192.0
+margin/top = 320.0
+margin/right = -192.0
+margin/bottom = 284.0
+placeholder/alpha = 0.6
 max_length = 32
-editable = true
-secret = false
+focus_mode = 2
+caret/caret_blink = false
+caret/caret_blink_speed = 0.65
 
 [node name="Label" type="Label" parent="CL/EscMenu/LevelName"]
 
-margin/left = 32.0
-margin/top = -32.0
-margin/right = 352.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 32.0
+margin/top = -32.0
+margin/right = 352.0
+margin/bottom = 0.0
 text = "Level Name:"
 align = 1
 valign = 1
@@ -260,45 +284,56 @@ max_lines_visible = -1
 [node name="FileDialog" type="FileDialog" parent="CL"]
 
 visibility/visible = false
-margin/left = 40.0
-margin/top = 128.0
-margin/right = 688.0
-margin/bottom = 800.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 40.0
+margin/top = 128.0
+margin/right = 688.0
+margin/bottom = 800.0
 popup/exclusive = true
 window/title = "Save a File"
 dialog/hide_on_ok = false
+mode = 4
+access = 0
+filters = StringArray( "*" )
+show_hidden_files = false
 
 [node name="LoadDialog" type="FileDialog" parent="CL"]
 
 visibility/visible = false
-margin/left = 40.0
-margin/top = 128.0
-margin/right = 688.0
-margin/bottom = 800.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 40.0
+margin/top = 128.0
+margin/right = 688.0
+margin/bottom = 800.0
 popup/exclusive = true
 window/title = "Save a File"
 dialog/hide_on_ok = false
+mode = 4
+access = 0
+filters = StringArray( "*" )
+show_hidden_files = false
 
 [node name="EditorWindow" type="Control" parent="."]
 
-margin/right = 720.0
-margin/bottom = 1280.0
 focus/ignore_mouse = true
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 720.0
+margin/bottom = 1280.0
 script/script = ExtResource( 3 )
 
 [node name="Level" type="Node2D" parent="EditorWindow"]
 
+editor/display_folded = true
 visibility/light_mask = 0
 script/script = SubResource( 1 )
 
@@ -335,7 +370,7 @@ texture = ExtResource( 5 )
 
 [node name="HELPERS" type="Node2D" parent="EditorWindow/Level"]
 
-__meta__ = { "_editor_collapsed":true }
+editor/display_folded = true
 
 [node name="ObjectPreview" type="Sprite" parent="EditorWindow/Level/HELPERS"]
 
@@ -405,27 +440,29 @@ scale = Vector2( 1, 1 )
 [node name="ItemSelection" type="Tree" parent="EditorWindow/CL"]
 
 visibility/visible = false
-margin/left = 8.0
-margin/top = 32.0
-margin/right = 264.0
-margin/bottom = 288.0
 focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
+margin/left = 8.0
+margin/top = 32.0
+margin/right = 264.0
+margin/bottom = 288.0
 script/script = SubResource( 4 )
 
 [node name="LevelName" type="Label" parent="EditorWindow/CL"]
 
 anchor/left = 3
 anchor/right = 3
-margin/left = 320.0
-margin/right = -320.0
-margin/bottom = 77.0
 focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
+size_flags/vertical = 0
 theme/theme = ExtResource( 1 )
+margin/left = 320.0
+margin/top = 0.0
+margin/right = -320.0
+margin/bottom = 77.0
 align = 1
 valign = 1
 percent_visible = 1.0
